@@ -1,0 +1,99 @@
+
+
+.content {
+    -fx-padding: 10px;
+    -fx-background-image: url("background.png");
+}
+
+.hour {
+    -fx-fill : #FFFFFF;
+    -fx-font-family: 'Courier New', monospace;
+    -fx-font-size: 31px;
+    -fx-font-weight: 700;
+    -fx-text-transform: uppercase;
+}
+
+.runways {
+    -fx-background-color: grey;
+    -fx-background-radius: 2px;
+    -fx-max-width: 200;
+}
+
+
+.freeRunway {
+    -fx-min-height: 65px;
+    -fx-min-width: 120px;
+    -fx-background-image: url("free_runway.png");
+    -fx-background-size: 130;
+}
+
+.takenRunway {
+    -fx-min-height: 65px;
+    -fx-min-width: 120px;
+    -fx-background-image: url("taken_runway.png");
+    -fx-background-size: 130;
+}
+
+.runwayHour {
+    -fx-fill : #FFFFFF;
+    -fx-font-family: 'Courier New', monospace;
+    -fx-font-size: 20px;
+    -fx-font-weight: 700;
+    -fx-text-transform: uppercase;
+}
+
+.screen {
+    -fx-background-image: url("ecran.png");
+    -fx-min-height: 500px;
+    -fx-min-width: 700px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 700;
+}
+
+.menu {
+    -fx-background-color: #2e2e2e;
+    -fx-min-height: 250px;
+    -fx-min-width: 600px;
+    -fx-max-width: 600px;
+    -fx-background-radius: 2px;
+}
+
+.requestMenu {
+    -fx-padding: 50px;
+    -fx-min-width: 600px;
+    -fx-max-width: 600px;
+
+}
+
+.title {
+    -fx-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-family: 'Courier New', monospace;
+    -fx-font-size: 20;
+}
+
+.desc {
+    -fx-fill: white;
+    -fx-font-family: 'Courier New', monospace;
+    -fx-font-size: 13;
+}
+
+.button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-family: 'Courier New', monospace;
+    -fx-border-color: white;
+}
+
+.waitingLine {
+    -fx-background-color: #2e2e2e;
+    -fx-background-radius: 2px;
+    -fx-min-width: 250px;
+}
+
+.plane {
+    -fx-background-color: black;
+    -fx-padding: 2px;
+    -fx-background-radius: 2px;
+}
+
