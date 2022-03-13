@@ -14,18 +14,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Application extends javafx.application.Application {
-    String planes[];
-    VBox runways, requestMenu, waitingLine;
+    VBox runwaysDisplay, requestMenu, waitingLineDisplay;
     Text hour, deaths;
 
+    public static void main(String[] args) {
+        launch();
+    }
 
     @Override
     public void start(Stage stage) throws IOException {
         BorderPane root = new BorderPane();
         root.getStyleClass().add("content");
-        planes = new String[8];
-        planes[2] = "Avion 1";
-        planes[4] = "manif";
 
         //Initialization of the top bar (hour and deaths)
         HBox display = new HBox();
@@ -42,20 +41,20 @@ public class Application extends javafx.application.Application {
         root.setTop(display);
 
         //Initialization of the runway menu
-        runways = new VBox();
-        runways.setMaxWidth(100);
-        runways.getStyleClass().add("runways");
-        runways.setSpacing(5);
-        runways.setPadding(new Insets(5, 5, 5, 5));
+        runwaysDisplay = new VBox();
+        runwaysDisplay.setMaxWidth(100);
+        runwaysDisplay.getStyleClass().add("runways");
+        runwaysDisplay.setSpacing(5);
+        runwaysDisplay.setPadding(new Insets(5, 5, 5, 5));
         for (int i = 0; i<8; i++) {
             HBox runway = new HBox();
             runway.getStyleClass().add("freeRunway");
             runway.setPadding(new Insets(0, 5, 0, 5));
             runway.setAlignment(Pos.CENTER_LEFT);
             runway.setSpacing(5);
-            runways.getChildren().addAll(runway);
+            runwaysDisplay.getChildren().addAll(runway);
         }
-        root.setCenter(runways);
+        root.setCenter(runwaysDisplay);
 
         //Initialization of the request menu
         StackPane screen = new StackPane();
@@ -94,8 +93,6 @@ public class Application extends javafx.application.Application {
         stage.getIcons().add(new Image("plane_landing.gif"));
         stage.setResizable(false);
         stage.show();
-
-        displayCrash();
 
     }
 
@@ -198,55 +195,66 @@ public class Application extends javafx.application.Application {
         requestMenu.getChildren().add(replay);
     }
 
-    public void updateRunways(String planes[]) {
-        runways.getChildren().clear();
-        for (String string : planes) {
-            HBox runway = new HBox();
-            runway.getStyleClass().add("freeRunway");
-            runway.setPadding(new Insets(0, 5, 0, 5));
-            runway.setAlignment(Pos.CENTER_LEFT);
-            if (string != null) {
-                Text planeHour = new Text(10, 50, "3h");
-                planeHour.getStyleClass().add("runwayHour");
-                runway.getStyleClass().add("takenRunway");
-                runway.getChildren().addAll(planeHour);
+    public void updateRunways() {
+        Runways runways = Runways.getInstance();
+
+        runwaysDisplay.getChildren().clear();
+        for (Runway runway : runways.getRunways()) {
+            HBox runwayDisplay = new HBox();
+            runwayDisplay.setPadding(new Insets(0, 5, 0, 5));
+            runwayDisplay.setAlignment(Pos.CENTER_LEFT);
+            Text planeHour = new Text(10, 50, String.valueOf(runway.getRunwayTime()));
+
+            switch (runway.getState()) {
+                case FREE:
+                    runwayDisplay.getStyleClass().add("freeRunway");
+                    break;
+                case OCCUPIED:
+                    planeHour = new Text(10, 50, String.valueOf(runway.getRunwayTime()));
+                    planeHour.getStyleClass().add("runwayHour");
+                    runwayDisplay.getStyleClass().add("takenRunway");
+                    runwayDisplay.getChildren().addAll(planeHour);
+                    break;
+                case FROZEN:
+                    planeHour = new Text(10, 50, String.valueOf(runway.getRunwayTime()));
+                    planeHour.getStyleClass().add("runwayHour");
+                    runwayDisplay.getStyleClass().add("takenRunway");
+                    runwayDisplay.getChildren().addAll(planeHour);
+                    break;
+                case RIOT:
+                    planeHour = new Text(10, 50, String.valueOf(runway.getRunwayTime()));
+                    planeHour.getStyleClass().add("runwayHour");
+                    runwayDisplay.getStyleClass().add("takenRunway");
+                    runwayDisplay.getChildren().addAll(planeHour);
+                    break;
             }
-            runway.setSpacing(5);
-            runways.getChildren().addAll(runway);
+            runwayDisplay.setSpacing(5);
+            runwaysDisplay.getChildren().addAll(runwayDisplay);
         }
     }
 
     public void updateWaitingLine() {
-        ArrayList<String> waiting = new ArrayList<>();
-        waiting.add("3265");
-        waiting.add("1465");
-        waiting.add("3292");
-        waiting.add("5646");
-
-        waitingLine.getChildren().clear();
-        HBox plane = new HBox();
-        plane.getStyleClass().add("plane");
+        WaitingLine waitingLine = WaitingLine.getInstance();
+        waitingLineDisplay.getChildren().clear();
+        HBox planeDisplay = new HBox();
+        planeDisplay.getStyleClass().add("plane");
         Text name = new Text("Waiting to land...");
         name.getStyleClass().add("desc");
-        plane.getChildren().addAll(name);
-        waitingLine.getChildren().add(plane);
-        for (String string: waiting) {
-            plane = new HBox();
-            plane.setAlignment(Pos.CENTER);
-            plane.getStyleClass().add("plane");
-            plane.setSpacing(40);
-            Text planeName = new Text(string);
+        planeDisplay.getChildren().addAll(name);
+        waitingLineDisplay.getChildren().add(planeDisplay);
+        for (Plane plane: waitingLine.getWaitingLine()) {
+            planeDisplay = new HBox();
+            planeDisplay.setAlignment(Pos.CENTER);
+            planeDisplay.getStyleClass().add("plane");
+            planeDisplay.setSpacing(40);
+            Text planeName = new Text(String.valueOf(plane.getId()));
             planeName.getStyleClass().add("desc");
-            Text time = new Text("3h left");
+            Text time = new Text(plane.getHoursFuel()+" left");
             time.getStyleClass().add("desc");
             Button button = new Button("Land");
             button.getStyleClass().add("button");
-            plane.getChildren().addAll(planeName, time, button);
-            waitingLine.getChildren().add(plane);
+            planeDisplay.getChildren().addAll(planeName, time, button);
+            waitingLineDisplay.getChildren().add(planeDisplay);
         }
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 }

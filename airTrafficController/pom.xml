@@ -60,7 +60,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>air.airtrafficcontroller/air.airtrafficcontroller.Application</mainClass>
+                            <mainClass>air.airtrafficcontroller/Application</mainClass>
                         </configuration>
                     </execution>
                 </executions>
