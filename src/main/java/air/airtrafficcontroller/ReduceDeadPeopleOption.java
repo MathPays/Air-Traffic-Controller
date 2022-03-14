@@ -1,13 +1,22 @@
 package air.airtrafficcontroller;
 
 public class ReduceDeadPeopleOption extends Option{
-    @Override
-    public void performOption() {
 
+    private int nb;
+    private Game game;
+
+    public ReduceDeadPeopleOption(String desc, int nb, Game game)
+    {
+        super(desc);
     }
 
     @Override
-    public void checkRequirement() {
+    public void performOption() {
+        game.reduceDeadPeople(nb);
+    }
 
+    @Override
+    public boolean checkRequirement() {
+        return true; //No requirements needed
     }
 }

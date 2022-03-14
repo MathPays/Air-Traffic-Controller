@@ -4,13 +4,19 @@ public class KillPeopleOption extends Option{
 
     private int number;
 
-    @Override
-    public void performOption() {
-
+    public KillPeopleOption(String desc, int nb)
+    {
+        super(desc);
+        this.number = nb;
     }
 
     @Override
-    public void checkRequirement() {
+    public void performOption() {
+        Game.killMorePeople(number);
+    }
 
+    @Override
+    public boolean checkRequirement() {
+        return true;
     }
 }

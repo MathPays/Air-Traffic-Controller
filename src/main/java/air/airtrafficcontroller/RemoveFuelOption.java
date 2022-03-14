@@ -1,13 +1,22 @@
 package air.airtrafficcontroller;
 
 public class RemoveFuelOption extends Option{
-    @Override
-    public void performOption() {
 
+    private int hour;
+
+    public RemoveFuelOption(int h, String desc)
+    {
+        super(desc);
+        hour = h;
     }
 
     @Override
-    public void checkRequirement() {
+    public void performOption() {
+        WaitingLine.removeFuel(hour);
+    }
 
+    @Override
+    public boolean checkRequirement() {
+        return true; //No requirements needed
     }
 }

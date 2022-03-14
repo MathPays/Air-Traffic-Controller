@@ -2,15 +2,25 @@ package air.airtrafficcontroller;
 
 public class EmptyRandomRunwayOption extends Option{
 
-    private Runways runways;
+    private Runway.State state;
 
-    @Override
-    public void performOption() {
-
+    public EmptyRandomRunwayOption(String desc)
+    {
+        super(desc);
     }
 
     @Override
-    public void checkRequirement() {
+    public void performOption() { //à retaper pour gérer l'aléatoire
+        for(Runway r : Runways.instance.getRunways())
+        {
+            if(r.getState().equals(Runway.State.OCCUPIED))
+                r.emptyRunway();
+                break;
+        }
+    }
 
+    @Override
+    public boolean checkRequirement() {
+        return Runways.checkIfAPlaneExistsIn();
     }
 }

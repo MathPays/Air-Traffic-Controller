@@ -54,4 +54,9 @@ public class WaitingLine {
     public static boolean checkIfPlaneIn(Plane p){
         return instance.waitingLine.contains(p);
     }
+
+    public static boolean checkIfExistsPlaneIn()
+    {
+        return instance.waitingLine.isEmpty();
+    }
 }

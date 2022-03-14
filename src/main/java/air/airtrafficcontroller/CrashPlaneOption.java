@@ -1,13 +1,19 @@
 package air.airtrafficcontroller;
 
-public class CrashPlaneOption extends Option{
+public class CrashPlaneOption extends Option{ //diffrence avec KillPeopleOption ?
+
+    public CrashPlaneOption(String desc)
+    {
+        super(desc);
+    }
+
     @Override
     public void performOption() {
 
     }
 
     @Override
-    public void checkRequirement() {
-
+    public boolean checkRequirement() {
+        return true;
     }
 }

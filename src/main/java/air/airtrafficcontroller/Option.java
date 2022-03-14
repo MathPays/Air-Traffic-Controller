@@ -4,6 +4,11 @@ public abstract class Option {
 
     private String desc;
 
+    public Option(String desc)
+    {
+        this.desc = desc;
+    }
+
     public abstract void performOption();
-    public abstract void checkRequirement();
+    public abstract boolean checkRequirement();
 }
