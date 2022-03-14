@@ -74,6 +74,16 @@ public class Runways{
         return false;
     }
 
+    public static boolean checkIfAPlaneExistsIn()
+    {
+        boolean emptyRunway = false;
+        for(Runway r : instance.getRunways()){
+            if(!(r.getPlane() == null))
+                emptyRunway = true;
+        }
+        return emptyRunway;
+    }
+
     public static void passHour(){
         for(Runway r : instance.getRunways()){
             r.passHour();
