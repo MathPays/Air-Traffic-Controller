@@ -1,5 +1,7 @@
 package air.airtrafficcontroller;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -242,6 +244,7 @@ public class Application extends javafx.application.Application {
         name.getStyleClass().add("desc");
         planeDisplay.getChildren().addAll(name);
         waitingLineDisplay.getChildren().add(planeDisplay);
+        boolean availableRunway = Runways.checkIfAvailableRunway();
         for (Plane plane: waitingLine.getWaitingLine()) {
             planeDisplay = new HBox();
             planeDisplay.setAlignment(Pos.CENTER);
@@ -252,7 +255,17 @@ public class Application extends javafx.application.Application {
             Text time = new Text(plane.getHoursFuel()+" left");
             time.getStyleClass().add("desc");
             Button button = new Button("Land");
-            button.getStyleClass().add("button");
+            if (availableRunway) {
+                button.getStyleClass().add("button");
+                button.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        WaitingLine.landPlane(plane);
+                    }
+                });
+            } else {
+                button.getStyleClass().add("blockedButton");
+            }
             planeDisplay.getChildren().addAll(planeName, time, button);
             waitingLineDisplay.getChildren().add(planeDisplay);
         }

@@ -46,10 +46,17 @@ public class WaitingLine {
         Runways.addPlane(plane, index);
     }
 
+    public static void landPlane(Plane plane){
+        removePlane(plane);
+        Runways.addPlane(plane);
+    }
+
     public static boolean checkIfPlaneIn(Plane p){
-        if(instance.waitingLine.contains((p))){
-            return true;
-        }
-        return false;
+        return instance.waitingLine.contains(p);
+    }
+
+    public static boolean checkIfExistsPlaneIn()
+    {
+        return instance.waitingLine.isEmpty();
     }
 }

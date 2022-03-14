@@ -28,6 +28,14 @@ public class Runways{
         instance.getRunways()[index].setPlane(plane);
     }
 
+    public static void addPlane(Plane plane){
+        for (Runway runway : instance.runways) {
+            if (runway.getState() == Runway.State.FREE) {
+                runway.setPlane(plane);
+            }
+        }
+    }
+
     public static Plane removePlane(int index){
         Plane p = instance.getRunways()[index].getPlane();
         instance.getRunways()[index] = null;
@@ -48,6 +56,15 @@ public class Runways{
         instance.getRunways()[index] = null;
     }
 
+    public static boolean checkIfAvailableRunway() {
+        for (Runway runway : instance.runways) {
+            if (runway.getState() == Runway.State.FREE) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static boolean checkIfPlaneIn(Plane plane){
         for(Runway r : instance.getRunways()){
             if(r.getPlane() == plane){
@@ -55,6 +72,16 @@ public class Runways{
             }
         }
         return false;
+    }
+
+    public static boolean checkIfAPlaneExistsIn()
+    {
+        boolean emptyRunway = false;
+        for(Runway r : instance.getRunways()){
+            if(!(r.getPlane() == null))
+                emptyRunway = true;
+        }
+        return emptyRunway;
     }
 
     public static void passHour(){

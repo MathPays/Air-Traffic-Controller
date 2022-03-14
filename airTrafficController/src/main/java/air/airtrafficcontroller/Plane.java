@@ -20,6 +20,11 @@ public class Plane {
         this.hoursFuel -= hoursToSub;
     }
     public int getRunwayTime() {return runwayTime; }
+
+    public void setRunwayTime(int runwayTime) {
+        this.runwayTime = runwayTime;
+    }
+
     public int getId() { return id; }
     public int getHoursFuel() { return hoursFuel; }
 }
