@@ -25,6 +25,9 @@ public class Plane {
         this.runwayTime = runwayTime;
     }
 
-    public int getId() { return id; }
-    public int getHoursFuel() { return hoursFuel; }
+    public int getId() { return this.id; }
+    public int getHoursFuel() { return this.hoursFuel; }
+    public int getPassengers() { return this.passengers; }
+
+    public void passHour() { this.hoursFuel--; }
 }

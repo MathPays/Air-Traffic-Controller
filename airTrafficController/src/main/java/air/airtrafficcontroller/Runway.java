@@ -41,7 +41,5 @@ public class Runway {
     public void setState(State s){
         this.state = s;
     }
-    public void passHour() {
-
-    }
+    public void passHour() { this.runwayTime--; }
 }

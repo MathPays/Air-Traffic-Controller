@@ -20,8 +20,8 @@ public class Runways{
         return instance;
     }
 
-    public Runway[] getRunways(){
-        return this.runways;
+    public static Runway[] getRunways(){
+        return instance.runways;
     }
 
     public static void addPlane(Plane plane, int index){

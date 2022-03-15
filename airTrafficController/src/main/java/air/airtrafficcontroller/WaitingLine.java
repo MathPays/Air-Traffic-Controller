@@ -17,8 +17,8 @@ public class WaitingLine {
         return instance;
     }
 
-    public  ArrayList<Plane> getWaitingLine(){
-        return waitingLine;
+    public static ArrayList<Plane> getWaitingLine(){
+        return instance.waitingLine;
     }
 
     public static void addPlane(Plane p){
