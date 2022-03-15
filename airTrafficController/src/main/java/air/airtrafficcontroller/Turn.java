@@ -121,7 +121,7 @@ public class Turn {
         for (Plane plane : WaitingLine.getWaitingLine()) {
             if (plane.getHoursFuel() == 0) {
                 Game.killMorePeople(plane.getPassengers());
-                WaitingLine.getWaitingLine().removePlane(plane);
+                WaitingLine.removePlane(plane);
             }
         }
     }
