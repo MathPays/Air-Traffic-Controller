@@ -17,16 +17,7 @@ public class LandPlaneOption extends Option {
 
     @Override
     public void performOption() {
-        for(Runway r : Runways.instance.getRunways())
-        {
-            if (r.getState().equals(Runway.State.FREE)) {
-                r.setPlane(plane);
-                r.setState(Runway.State.OCCUPIED);
-                r.setRunwayTime(plane.getRunwayTime());
-                break;
-            }
-        }
-
+        Runways.addPlane(this.plane);
     }
 
     @Override

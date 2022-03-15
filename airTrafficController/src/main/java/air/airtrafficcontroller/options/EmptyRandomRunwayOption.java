@@ -15,11 +15,18 @@ public class EmptyRandomRunwayOption extends Option {
 
     @Override
     public void performOption() { //à retaper pour gérer l'aléatoire
-        for(Runway r : Runways.instance.getRunways())
-        {
-            if(r.getState().equals(Runway.State.OCCUPIED))
-                r.emptyRunway();
-                break;
+
+        int index = (int) (Math.random() * 8);
+        for(int i = index; i < 7; i++) {
+            if(!(Runways.getRunways()[i].getState().equals(Runway.State.OCCUPIED)))
+            {
+                if(i == 7) //We go back to the beggining of the loop until we find a free runway
+                    i = -1; //will be incremented at 0 automatically
+                continue;
+            }
+            else
+                Runways.getRunways()[i].removePlane(); //state free + remove plane
+            break;
         }
     }
 

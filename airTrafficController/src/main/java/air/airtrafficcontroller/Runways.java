@@ -32,6 +32,9 @@ public class Runways{
         for (Runway runway : instance.runways) {
             if (runway.getState() == Runway.State.FREE) {
                 runway.setPlane(plane);
+                runway.setState(Runway.State.OCCUPIED);
+                runway.setRunwayTime(plane.getRunwayTime());
+                break;
             }
         }
         Application.updateRunways();
