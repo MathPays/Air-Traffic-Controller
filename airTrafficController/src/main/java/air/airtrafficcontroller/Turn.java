@@ -46,9 +46,9 @@ public class Turn {
         }
         else if(idRequest < 60){ //Jumbo jet
             int fuel = 4 + random.nextInt(3);
-            int runwayTime = 1 + random.nextInt(3);
+            int runwayTime = 1 + random.nextInt(4);
             int passengers = 300 + random.nextInt(301);
-            PlaneRequest request = new PlaneRequest("A large aircraft wants to land.", "Emergency landing", 15, 2, fuel, runwayTime, passengers);
+            PlaneRequest request = new PlaneRequest("A large aircraft wants to land.", "Jumbo Jet", 15, 2, fuel, runwayTime, passengers);
             Option opt1 = new LandPlaneOption("Allow landing", request.getPlane());
             Option opt2 = new AddToWaitingLineOption("Place on standby", request.getPlane());
             request.addOption(opt1);
