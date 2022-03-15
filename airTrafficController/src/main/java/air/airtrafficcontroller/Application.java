@@ -13,17 +13,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 public class Application extends javafx.application.Application {
     public static Application instance = new Application();
     public VBox runwaysDisplay, requestMenu, waitingLineDisplay;
     public Text hour, deaths;
-
-    public Application() {
-
-    }
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -39,9 +34,9 @@ public class Application extends javafx.application.Application {
         ImageView image = new ImageView(new Image("death.png"));
         image.setFitWidth(35);
         image.setPreserveRatio(true);
-        deaths = new Text(10, 50, "0");
-        deaths.getStyleClass().add("hour");
-        display.getChildren().addAll(instance.hour, image, deaths);
+        instance.deaths = new Text(10, 50, "0");
+        instance.deaths.getStyleClass().add("hour");
+        display.getChildren().addAll(instance.hour, image, instance.deaths);
         root.setTop(display);
 
         //Initialization of the runway menu
@@ -77,16 +72,19 @@ public class Application extends javafx.application.Application {
         menu.setTop(instance.requestMenu);
 
         //Initizalization of the waiting line
-        VBox waitingLine = new VBox(10);
-        waitingLine.setPadding(new Insets(10, 10, 10, 10));
-        waitingLine.getStyleClass().add("waitingLine");
+        instance.waitingLineDisplay = new VBox(10);
+        instance.waitingLineDisplay.setPadding(new Insets(10, 10, 10, 10));
+        instance.waitingLineDisplay.getStyleClass().add("waitingLine");
         HBox plane = new HBox();
         plane.getStyleClass().add("plane");
         Text name = new Text("Waiting to land...");
         name.getStyleClass().add("desc");
         plane.getChildren().addAll(name);
-        waitingLine.getChildren().add(plane);
-        root.setRight(waitingLine);
+        instance.waitingLineDisplay.getChildren().add(plane);
+        root.setRight(instance.waitingLineDisplay);
+
+        Turn turn = new Turn();
+        displayRequest(turn.getRequest());
 
         Scene scene = new Scene(root, 1200, 650);
         scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
@@ -122,7 +120,7 @@ public class Application extends javafx.application.Application {
         text.getChildren().addAll(title, desc);
         descMenu.getChildren().addAll(gif,text);
         instance.requestMenu.getChildren().addAll(descMenu);
-        Option[] options = request.getListOptions();
+        ArrayList<Option> options = request.getListOptions();
         for (Option option: options) {
             Button button = new Button(option.getDesc());
             button.getStyleClass().add("button");
@@ -200,6 +198,7 @@ public class Application extends javafx.application.Application {
     }
 
     public static void updateRunways() {
+        System.out.println("TEST");
         Runways runways = Runways.getInstance();
 
         instance.runwaysDisplay.getChildren().clear();
@@ -238,6 +237,7 @@ public class Application extends javafx.application.Application {
     }
 
     public static void updateWaitingLine() {
+        System.out.println("TEST2");
         WaitingLine waitingLine = WaitingLine.getInstance();
         instance.waitingLineDisplay.getChildren().clear();
         HBox planeDisplay = new HBox();
