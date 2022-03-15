@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Application extends javafx.application.Application {
-    VBox runwaysDisplay, requestMen u, waitingLineDisplay;
+    VBox runwaysDisplay, requestMenu, waitingLineDisplay;
     Text hour, deaths;
 
     public static void main(String[] args) {
