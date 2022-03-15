@@ -1,5 +1,7 @@
 package air.airtrafficcontroller;
 
+import air.airtrafficcontroller.options.*;
+
 import java.util.Random;
 
 public class Turn {
@@ -13,10 +15,6 @@ public class Turn {
             Request request = this.createRequest();
             this.requestList[i] = request;
         }
-    }
-
-    public void answerRequest(int requestIndex, int optionIndex) {
-        this.requestList[requestIndex].choose(optionIndex);
     }
 
     private Request createRequest(){

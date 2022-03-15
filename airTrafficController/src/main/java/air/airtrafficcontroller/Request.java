@@ -2,11 +2,13 @@ package air.airtrafficcontroller;
 
 public class Request {
     private String description, title;
+    private String imagePath;
     private double rarity;
     private Option[] listOptions;
 
     public Request(String description, String title, double rarity, int nbOptions){
         this.description = description;
+        this.imagePath = "protest.gif";
         this.title = title;
         this.rarity = rarity;
         this.listOptions = new Option[nbOptions];
@@ -34,5 +36,21 @@ public class Request {
             res += "Option " + i + " : " + this.listOptions[i].toString() + "\n";
         }
         return res;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public Option[] getListOptions() {
+        return listOptions;
     }
 }

@@ -3,8 +3,8 @@ package air.airtrafficcontroller;
 public class Game {
 
     public static Game instance = new Game();
-    public int hour;
-    public int peopleKilled;
+    private int hour;
+    private int peopleKilled;
 
     // Forced the default constructor
     private Game() {
@@ -24,19 +24,28 @@ public class Game {
 
     public static void passHour() {
         instance.hour += 1;
+        Application.updateHour(instance.hour);
     }
 
+    /**
+     * increases the number of dead people
+     * @param nb the number of people to add
+     */
     public static void killMorePeople(int nb) {
         instance.peopleKilled += nb;
+        Application.updateDeaths(instance.peopleKilled);
     }
 
+    /**
+     * decreases the number of dead people
+     * @param nb the number of dead people to be removed
+     */
     public static void reduceDeadPeople(int nb) {
         if(instance.peopleKilled <= nb)
             instance.peopleKilled = 0;
         else
             instance.peopleKilled -= nb;
+        Application.updateDeaths(instance.peopleKilled);
     }
-
-
 
 }

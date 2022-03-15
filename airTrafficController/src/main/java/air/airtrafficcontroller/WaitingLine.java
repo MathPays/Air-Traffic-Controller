@@ -23,32 +23,38 @@ public class WaitingLine {
 
     public static void addPlane(Plane p){
         instance.waitingLine.add(p);
+        Application.updateWaitingLine();
     }
 
     public static void removePlane(Plane p){
         instance.waitingLine.remove(p);
+        Application.updateWaitingLine();
     }
 
     public static void removeFuel(int hour){
         for(Plane p : instance.waitingLine){
             p.removeFuel(hour);
         }
+        Application.updateWaitingLine();
     }
 
     public static void addFuel(int hour){
         for(Plane p : instance.waitingLine){
             p.addFuel(hour);
         }
+        Application.updateWaitingLine();
     }
 
     public static void landPlane(Plane plane, int index){
         removePlane(plane);
         Runways.addPlane(plane, index);
+        Application.updateWaitingLine();
     }
 
     public static void landPlane(Plane plane){
         removePlane(plane);
         Runways.addPlane(plane);
+        Application.updateWaitingLine();
     }
 
     public int size()

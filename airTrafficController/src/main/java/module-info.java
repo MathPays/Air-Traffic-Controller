@@ -5,4 +5,6 @@ module air.airtrafficcontroller {
 
     opens air.airtrafficcontroller to javafx.fxml;
     exports air.airtrafficcontroller;
+    exports air.airtrafficcontroller.options;
+    opens air.airtrafficcontroller.options to javafx.fxml;
 }
