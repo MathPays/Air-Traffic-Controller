@@ -1,15 +1,27 @@
 package air.airtrafficcontroller;
 
-public class CrashPlaneOption extends Option{ //diffrence avec KillPeopleOption ?
+public class CrashPlaneOption extends Option{
 
-    public CrashPlaneOption(String desc)
+    private int number;
+
+    public CrashPlaneOption(String desc, int nb)
     {
         super(desc);
+        this.number = nb;
     }
 
     @Override
     public void performOption() {
-
+        if(WaitingLine.instance.size() > 0)
+        {
+            int id = (int) (Math.random() * WaitingLine.instance.size());
+            for(Plane p : WaitingLine.getWaitingLine())
+            {
+                if(p.getId() == id)
+                    WaitingLine.removePlane(p);
+            }
+        }
+        Game.killMorePeople(number);
     }
 
     @Override

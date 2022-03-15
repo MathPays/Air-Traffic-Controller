@@ -51,6 +51,11 @@ public class WaitingLine {
         Runways.addPlane(plane);
     }
 
+    public int size()
+    {
+        return this.waitingLine.size();
+    }
+
     public static boolean checkIfPlaneIn(Plane p){
         return instance.waitingLine.contains(p);
     }
