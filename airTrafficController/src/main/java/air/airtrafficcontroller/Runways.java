@@ -65,6 +65,20 @@ public class Runways{
         return false;
     }
 
+    public static boolean checkIf2AvailablesRunway(){
+        int compt = 0;
+
+        for (Runway runway : instance.runways) {
+            if (runway.getState() == Runway.State.FREE) {
+                compt += 1;
+            }
+        }
+
+        if(compt >= 2)
+            return true;
+        return false;
+    }
+
     public static boolean checkIfPlaneIn(Plane plane){
         for(Runway r : instance.getRunways()){
             if(r.getPlane() == plane){
