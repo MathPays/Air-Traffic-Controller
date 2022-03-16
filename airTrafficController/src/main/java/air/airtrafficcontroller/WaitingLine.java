@@ -52,6 +52,7 @@ public class WaitingLine {
         Runways.addPlane(plane, index);
         Application.updateWaitingLine();
     }
+
     public static void landPlane(Plane plane){
         removePlane(plane);
         Runways.addPlane(plane);

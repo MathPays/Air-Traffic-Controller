@@ -71,6 +71,9 @@ public class Application extends javafx.application.Application {
 
         menu.setTop(instance.requestMenu);
 
+        Turn turn = new Turn();
+        displayRequest(turn.getRequest());
+
         //Initizalization of the waiting line
         instance.waitingLineDisplay = new VBox(10);
         instance.waitingLineDisplay.setPadding(new Insets(10, 10, 10, 10));
@@ -138,6 +141,8 @@ public class Application extends javafx.application.Application {
                     @Override
                     public void handle(ActionEvent event) {
                         option.performOption();
+                        Game.getCurrentTurn().removeRequest(0);
+                        displayRequest(Game.getCurrentTurn().getNextRequest());
                     }
                 });
             } else {

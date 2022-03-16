@@ -18,11 +18,6 @@ public class Turn {
         }
     }
 
-    // Getter
-    public Request getRequest() {
-        return requestList[0];
-    }
-
     //Creates one random request and its options
     private Request createRequest(){
         Random random = new Random();
@@ -147,6 +142,10 @@ public class Turn {
     //Remove a request (once request is completed)
     public void removeRequest(int index) {
         this.requestList[index] = null;
+    }
+
+    public Request getRequest() {
+        return requestList[0];
     }
 
 }
