@@ -1,6 +1,9 @@
-package air.airtrafficcontroller;
+package air.airtrafficcontroller.options;
 
-public class AddFuelOption extends Option{
+import air.airtrafficcontroller.Option;
+import air.airtrafficcontroller.WaitingLine;
+
+public class AddFuelOption extends Option {
 
     // A t-on vraiment besoin de cet attribut? On fait pas le plein par défaut ?
     private int hour;

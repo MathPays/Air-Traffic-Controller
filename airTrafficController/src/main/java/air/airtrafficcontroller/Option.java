@@ -11,4 +11,7 @@ public abstract class Option {
 
     public abstract void performOption();
     public abstract boolean checkRequirement();
+    public String getDesc() {
+        return desc;
+    }
 }

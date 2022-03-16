@@ -2,8 +2,6 @@ package air.airtrafficcontroller;
 
 public class Game {
 
-    // TODO: main loop to create a game and a turn, interaction with UI
-
     public static Game instance = new Game();
     public int hour;
     public int peopleKilled;
@@ -39,12 +37,6 @@ public class Game {
             instance.peopleKilled -= nb;
     }
 
-    public boolean checkDefeat() {
-        return (instance.peopleKilled >= 350);
-    }
 
-    public boolean checkVictory() {
-        return (instance.hour >= 24);
-    }
 
 }

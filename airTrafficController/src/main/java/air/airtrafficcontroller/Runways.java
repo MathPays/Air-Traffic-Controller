@@ -32,13 +32,18 @@ public class Runways{
         for (Runway runway : instance.runways) {
             if (runway.getState() == Runway.State.FREE) {
                 runway.setPlane(plane);
+                runway.setState(Runway.State.OCCUPIED);
+                runway.setRunwayTime(plane.getRunwayTime());
+                break;
             }
         }
+        Application.updateRunways();
     }
 
     public static Plane removePlane(int index){
         Plane p = instance.getRunways()[index].getPlane();
         instance.getRunways()[index] = null;
+        Application.updateRunways();
         return p;
     }
 
@@ -49,11 +54,13 @@ public class Runways{
                 break;
             }
         }
+        Application.updateRunways();
     }
 
     public static void emptyRandomRunway(){
         int index = (int) (Math.random() * 8);
         instance.getRunways()[index] = null;
+        Application.updateRunways();
     }
 
     public static boolean checkIfAvailableRunway() {
@@ -62,6 +69,20 @@ public class Runways{
                 return true;
             }
         }
+        return false;
+    }
+
+    public static boolean checkIf2AvailablesRunway(){
+        int compt = 0;
+
+        for (Runway runway : instance.runways) {
+            if (runway.getState() == Runway.State.FREE) {
+                compt += 1;
+            }
+        }
+
+        if(compt >= 2)
+            return true;
         return false;
     }
 

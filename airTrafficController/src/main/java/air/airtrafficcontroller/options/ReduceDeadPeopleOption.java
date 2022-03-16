@@ -1,6 +1,9 @@
-package air.airtrafficcontroller;
+package air.airtrafficcontroller.options;
 
-public class ReduceDeadPeopleOption extends Option{
+import air.airtrafficcontroller.Game;
+import air.airtrafficcontroller.Option;
+
+public class ReduceDeadPeopleOption extends Option {
 
     private int nb;
 
@@ -12,7 +15,7 @@ public class ReduceDeadPeopleOption extends Option{
 
     @Override
     public void performOption() {
-        Game.instance.reduceDeadPeople(nb);
+        Game.reduceDeadPeople(nb);
     }
 
     @Override

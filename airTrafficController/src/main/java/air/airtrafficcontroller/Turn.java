@@ -1,5 +1,7 @@
 package air.airtrafficcontroller;
 
+import air.airtrafficcontroller.options.*;
+
 import java.util.Random;
 
 public class Turn {
@@ -13,10 +15,6 @@ public class Turn {
             Request request = this.createRequest();
             this.requestList[i] = request;
         }
-    }
-
-    public void answerRequest(int requestIndex, int optionIndex) {
-        this.requestList[requestIndex].choose(optionIndex);
     }
 
     private Request createRequest(){
@@ -67,7 +65,7 @@ public class Turn {
             return request;
         }
         else if(idRequest < 80){ //Funding event
-            Request request = new Request("Increase in funding allows for one of the following bonuses:", "Funding Event", 10, 3);
+            Request request = new Request("Increase in funding allows for one of the following bonuses:", "Funding Event", 10, 3,"funding.gif");
             Option opt1 = new EmptyRandomRunwayOption("Empty a random runway");
             Option opt2 = new ReduceDeadPeopleOption("Rescue Team", 100);
             Option opt3 = new AddFuelOption(1, "Air Refueling");
@@ -96,7 +94,7 @@ public class Turn {
             return request;
         }
         else { //john mcclain
-            Request request = new Request("Security reports of a man hijacking a plane on the runway. He claims he needs to stop the terrorists from stealing christmas. Do you lock down the runway or let them go?", "John McClain", 5, 2);
+            Request request = new Request("Security reports of a man hijacking a plane on the runway. He claims he needs to stop the terrorists from stealing christmas. Do you lock down the runway or let them go?", "John McClain", 5, 2,"johnmcclane.gif");
             Option opt1 = new BlockRunwayOption("Lockdown the runway", 8, Runway.State.OCCUPIED);
             // TODO: MISSIONG OPTIONS
             request.addOption(opt1);
@@ -126,6 +124,8 @@ public class Turn {
         }
     }
 
-
+    public Request getRequest() {
+        return requestList[0];
+    }
 
 }

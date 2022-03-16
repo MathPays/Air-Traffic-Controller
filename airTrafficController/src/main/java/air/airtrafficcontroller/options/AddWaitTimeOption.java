@@ -1,6 +1,10 @@
-package air.airtrafficcontroller;
+package air.airtrafficcontroller.options;
 
-public class AddWaitTimeOption extends Option{
+import air.airtrafficcontroller.Option;
+import air.airtrafficcontroller.Runway;
+import air.airtrafficcontroller.Runways;
+
+public class AddWaitTimeOption extends Option {
 
     private int hour;
 

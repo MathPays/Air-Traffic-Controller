@@ -1,6 +1,9 @@
-package air.airtrafficcontroller;
+package air.airtrafficcontroller.options;
 
-public class KillPeopleOption extends Option{
+import air.airtrafficcontroller.Game;
+import air.airtrafficcontroller.Option;
+
+public class KillPeopleOption extends Option {
 
     private int number;
 

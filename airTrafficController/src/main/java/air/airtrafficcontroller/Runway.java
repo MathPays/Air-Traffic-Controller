@@ -2,7 +2,7 @@ package air.airtrafficcontroller;
 
 public class Runway {
     public enum State{
-        FROZEN, FREE, RIOT, OCCUPIED, PROTEST
+        FROZEN, FREE, RIOT, OCCUPIED, PROTEST, REMOVED
     }
 
     private State state;

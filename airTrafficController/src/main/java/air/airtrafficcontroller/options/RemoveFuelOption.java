@@ -1,6 +1,9 @@
-package air.airtrafficcontroller;
+package air.airtrafficcontroller.options;
 
-public class RemoveFuelOption extends Option{
+import air.airtrafficcontroller.Option;
+import air.airtrafficcontroller.WaitingLine;
+
+public class RemoveFuelOption extends Option {
 
     private int hour;
 

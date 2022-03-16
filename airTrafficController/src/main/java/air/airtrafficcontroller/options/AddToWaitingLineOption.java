@@ -1,6 +1,10 @@
-package air.airtrafficcontroller;
+package air.airtrafficcontroller.options;
 
-public class AddToWaitingLineOption extends Option{
+import air.airtrafficcontroller.Option;
+import air.airtrafficcontroller.Plane;
+import air.airtrafficcontroller.WaitingLine;
+
+public class AddToWaitingLineOption extends Option {
 
     private Plane plane;
 
