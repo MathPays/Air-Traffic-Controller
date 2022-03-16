@@ -19,7 +19,10 @@ public class Turn {
         }
     }
 
-    //Creates one random request and its options
+    /**
+     * Create one random request and its options
+     * @return random request created
+     */
     private Request createRequest(){
         Random random = new Random();
         int idRequest = random.nextInt(100); //number from 0 to 99 for percentages of rarity
@@ -106,7 +109,9 @@ public class Turn {
         }
     }
 
-    //Checks if runwayTime of runways is 0 and removes planes that can go (called at end of every turn)
+    /**
+     * Checks if runwayTime of runways is 0 and removes planes that can go (called at end of every turn)
+     */
     public void allTakeOff() {
         for (Runway runway : Runways.getRunways()) {
             if(runway.getRunwayTime() == 0) {
@@ -114,8 +119,10 @@ public class Turn {
             }
         }
     }
-
-    //Checks fuel left in waiting planes and crashed those that are out (called at the end of every turn)
+    /**
+     * Checks fuel left in waiting planes and crashed those that are out (called at the end of every turn)
+     * @return true if there is no planes to crash
+     */
     public boolean crashWaitingPlanes() {
         ArrayList<Plane> planesToCrash = new ArrayList<>();
         for (Plane plane : WaitingLine.getWaitingLine()) {
@@ -130,7 +137,10 @@ public class Turn {
         return false;
     }
 
-    //Gets next request if there is one, returns null if no requests left
+    /**
+     * Gets next request if there is one, returns null if no requests left
+     * @return next request in the list
+     */
     public Request getNextRequest() {
         for(Request request : requestList){
             if(request != null){
@@ -139,11 +149,10 @@ public class Turn {
         }
         return null;
     }
-
-    //Remove a request (once request is completed)
+    /**
+     * Removes a request (once request is completed)
+     */
     public void removeRequest() {
         this.requestList.remove(0);
     }
-
-    //A SUPP APRES
 }

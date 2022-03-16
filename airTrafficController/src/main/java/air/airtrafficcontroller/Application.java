@@ -93,21 +93,21 @@ public class Application extends javafx.application.Application {
     }
 
     /**
-     * update the hour on the UI
+     * Updates the hour on the UI
      */
     public static void updateHour() {
         instance.hour.setText(Game.getHour()+":00");
     }
 
     /**
-     * update the count of deaths on the UI
+     * Updates the count of deaths on the UI
      */
     public static void updateDeaths() {
         instance.deaths.setText(String.valueOf(Game.getPeopleKilled()));
     }
 
     /**
-     * display the request on the monitor of the UI
+     * Displays the request on the monitor of the UI
      * @param request request to display
      */
     public static void displayRequest(Request request) {
@@ -149,7 +149,7 @@ public class Application extends javafx.application.Application {
 
 
     /**
-     * display the infos about a crash on the monitor of the UI
+     * Displays the infos about a crash on the monitor of the UI
      * @param planesToCrash list of planes to crash
      */
     public static void displayCrash(ArrayList<Plane> planesToCrash) {
@@ -192,7 +192,7 @@ public class Application extends javafx.application.Application {
     }
 
     /**
-     * display the victory message on the monitor
+     * Displays the victory message on the monitor
      */
     public static void displayVictory() {
         updateWaitingLine();
@@ -225,7 +225,7 @@ public class Application extends javafx.application.Application {
     }
 
     /**
-     * display the game over on the monitor
+     * Displays the game over on the monitor
      */
     public static void displayGameOver() {
         updateWaitingLine();
@@ -257,7 +257,7 @@ public class Application extends javafx.application.Application {
     }
 
     /**
-     * display the end of the hour
+     * Displays the end of the hour
      */
     public static void displayPassHour() {
         instance.requestMenu.getChildren().clear();
@@ -286,7 +286,7 @@ public class Application extends javafx.application.Application {
     }
 
     /**
-     * update the runways on the center
+     * Updates the runways on the center
      */
     public static void updateRunways() {
         instance.runwaysDisplay.getChildren().clear();
@@ -332,7 +332,7 @@ public class Application extends javafx.application.Application {
     }
 
     /**
-     * update the waiting line on the left
+     * Updates the waiting line on the left
      */
     public static void updateWaitingLine() {
         instance.waitingLineDisplay.getChildren().clear();

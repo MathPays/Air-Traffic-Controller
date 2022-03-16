@@ -12,18 +12,17 @@ public class Runways{
         }
     }
 
+    /**
+     * Reboot the runways
+     */
     public static void replay() {
         instance = new Runways();
     }
 
-    public static Runway[] getRunways(){
-        return instance.runways;
-    }
-
-    //Add planes
-    public static void addPlane(Plane plane, int index){
-        getRunways()[index].setPlane(plane);
-    }
+    /**
+     * Adds plane to the runways
+     * @param plane plane to add
+     */
     public static void addPlane(Plane plane){
         for (Runway runway : instance.runways) {
             if (runway.getState() == Runway.State.FREE) {
@@ -36,7 +35,10 @@ public class Runways{
         Application.updateRunways();
     }
 
-    //Check available runways
+    /**
+     * Checks if a runway is free
+     * @return true if a runway is free
+     */
     public static boolean checkIfAvailableRunway() {
         for (Runway runway : instance.runways) {
             if (runway.getState() == Runway.State.FREE) {
@@ -45,6 +47,11 @@ public class Runways{
         }
         return false;
     }
+
+    /**
+     * Checks if 2 runways are free
+     * @return true if 2 runway are free
+     */
     public static boolean checkIf2AvailableRunway(){
         int count = 0;
         for (Runway runway : instance.runways) {
@@ -57,7 +64,10 @@ public class Runways{
         return false;
     }
 
-    //Check if plane in or if empty
+    /**
+     * Checks if a plane is in the runways
+     * @return true if a plane is in the runways
+     */
     public static boolean checkIfAPlaneExistsIn() {
         boolean emptyRunway = false;
         for(Runway r : getRunways()){
@@ -69,10 +79,16 @@ public class Runways{
         return emptyRunway;
     }
 
-    //Pass hour for each runway
+    /**
+     * Pass hour for each runway
+     */
     public static void passHour(){
         for(Runway r : getRunways()){
             r.passHour();
         }
+    }
+
+    public static Runway[] getRunways(){
+        return instance.runways;
     }
 }

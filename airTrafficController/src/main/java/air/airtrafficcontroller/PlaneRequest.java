@@ -9,13 +9,18 @@ public class PlaneRequest extends Request{
         this.createPlane(h, r, p);
     }
 
-    //Constructor with image path
+
     public PlaneRequest(String description, String title, double rarity, int h, int r, int p, String imagePath){
         super(description, title, rarity, imagePath);
         this.createPlane(h, r, p);
     }
 
-    //Creates the plane associated with the request
+    /**
+     * Creates the plane associated to the request
+     * @param h hours of fuel
+     * @param r hours to wait on the runway
+     * @param p number of passengers
+     */
     private void createPlane(int h, int r, int p){
         this.plane = new Plane(h, r, p);
     }

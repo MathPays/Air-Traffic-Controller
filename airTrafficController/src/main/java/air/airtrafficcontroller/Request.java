@@ -26,7 +26,10 @@ public class Request {
         this.listOptions = new ArrayList<>();
     }
 
-    //Add an option to option list
+    /**
+     * Adds option to the options list
+     * @param option option to add to the list
+     */
     public void addOption(Option option){
        listOptions.add(option);
     }

@@ -15,10 +15,18 @@ public class Plane {
         index++;
     }
 
-    //Setters / Modifiers
+    /**
+     * Adds fuel to the plane
+     * @param hoursToAdd hours of fuel to add
+     */
     public void addFuel(int hoursToAdd){
         this.hoursFuel += hoursToAdd;
     }
+
+    /**
+     * Removes fuel from the plane
+     * @param hoursToSub hours of fuel to remove
+     */
     public void removeFuel(int hoursToSub){
         if (hoursFuel >= 0) {
             this.hoursFuel -= hoursToSub;

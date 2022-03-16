@@ -15,11 +15,6 @@ public class WaitingLine {
         instance = new WaitingLine();
     }
 
-    //Getters
-    public static ArrayList<Plane> getWaitingLine(){
-        return instance.waitingLine;
-    }
-
     public static void addPlane(Plane p){
         instance.waitingLine.add(p);
         Application.updateWaitingLine();
@@ -62,5 +57,10 @@ public class WaitingLine {
 
     public static void passHour(){
         removeFuel(1);
+    }
+
+    //Getters
+    public static ArrayList<Plane> getWaitingLine(){
+        return instance.waitingLine;
     }
 }

@@ -15,6 +15,19 @@ public class Runway {
         this.runwayTime = 0;
     }
 
+    /**
+     * Removes plane from the runway
+     */
+    public void removePlane(){
+        this.plane = null;
+        this.state = State.FREE;
+    }
+
+    /**
+     * Pass hour by decreasing the runway time
+     */
+    public void passHour() { this.runwayTime--; }
+
     //Getters
     public Plane getPlane(){
         return this.plane;
@@ -36,12 +49,4 @@ public class Runway {
     public void setState(State s){
         this.state = s;
     }
-
-    //Remove plane / Set state to FREE
-    public void removePlane(){
-        this.plane = null;
-        this.state = State.FREE;
-    }
-
-    public void passHour() { this.runwayTime--; }
 }
