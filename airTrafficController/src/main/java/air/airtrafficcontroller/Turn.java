@@ -89,18 +89,16 @@ public class Turn {
         else if(idRequest < 95){ //protests, 5%
             Request request = new Request("A group of protestors are blocking the runway claiming that your airplanes are dropping chemtrails which has caused the following health issues: “makes their toothpaste taste like mint.”", "Protests", 5, 3);
             Option opt1 = new BlockRunwayOption("Allow them space to protest.", 10, Runway.State.PROTEST);
-            Option opt2 = new BlockRunwayOption("Get police involved", 4, Runway.State.RIOT);
+            // TODO: IMPORTANT MISSING OPTION BLOCK 2 RUNWAYS
             Option opt3 = new KillPeopleOption("Let the plane land anyways", 100);
             request.addOption(opt1);
-            request.addOption(opt2);
             request.addOption(opt3);
             return request;
         }
         else { //john mcclain, 5%
             Request request = new Request("Security reports of a man hijacking a plane on the runway. He claims he needs to stop the terrorists from stealing christmas. Do you lock down the runway or let them go?", "John McClain", 5, 2,"johnmcclane.gif");
             Option opt1 = new BlockRunwayOption("Lockdown the runway", 8, Runway.State.OCCUPIED);
-            Option opt2 = new CrashPlaneOption("Let the man go", 100);
-            request.addOption(opt2);
+            // TODO: MISSIONG OPTIONS
             request.addOption(opt1);
             return request;
         }

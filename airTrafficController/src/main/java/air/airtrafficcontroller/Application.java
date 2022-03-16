@@ -257,9 +257,16 @@ public class Application extends javafx.application.Application {
         descMenu.getChildren().addAll(gif,text);
         instance.requestMenu.getChildren().addAll(descMenu);
         //Choices
-        Button replay = new Button("Move to next hour");
-        replay.getStyleClass().add("button");
-        instance.requestMenu.getChildren().add(replay);
+        Button button = new Button("Move to next hour");
+        button.getStyleClass().add("button");
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Game.passHour();
+                Game.getCurrentTurn().getNextRequest();
+            }
+        });
+        instance.requestMenu.getChildren().add(button);
     }
 
     /**

@@ -21,12 +21,22 @@ public class Game {
         }
     }
 
-    public boolean checkDefeat() {
-        return (instance.peopleKilled >= 350);
+    public static boolean checkDefeat() {
+        if (instance.peopleKilled >= 350) {
+            Application.displayGameOver();
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    public boolean checkVictory() {
-        return (instance.hour >= 24);
+    public static boolean checkVictory() {
+        if (instance.hour >= 24) {
+            Application.displayVictory();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     //Resets the game values (for a new game)
@@ -47,6 +57,8 @@ public class Game {
         getCurrentTurn().allTakeOff(); //update runways, get rid of planes that are done waiting
         getCurrentTurn().crashWaitingPlanes(); //update waiting line, get rid of planes out of fuel
         instance.hour += 1;
+        checkDefeat();
+        checkVictory();
     }
 
     //Change amount of dead people (see option consequences)
