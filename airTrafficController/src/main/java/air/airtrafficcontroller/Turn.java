@@ -1,8 +1,9 @@
 package air.airtrafficcontroller;
 
 import air.airtrafficcontroller.options.*;
-import java.util.ArrayList;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class Turn {
@@ -144,4 +145,6 @@ public class Turn {
     public void removeRequest() {
         this.requestList.remove(0);
     }
+
+    //A SUPP APRES
 }

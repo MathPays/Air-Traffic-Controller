@@ -71,7 +71,7 @@ public class Application extends javafx.application.Application {
 
         menu.setTop(instance.requestMenu);
 
-        Turn turn = new Turn();
+        displayRequest(Game.getCurrentTurn().getNextRequest());
 
         //Initizalization of the waiting line
         instance.waitingLineDisplay = new VBox(10);
@@ -261,8 +261,9 @@ public class Application extends javafx.application.Application {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Game.passHour();
-                Game.getCurrentTurn().getNextRequest();
+                if (Game.passHour()) {
+                    displayRequest(Game.getCurrentTurn().getNextRequest());
+                }
             }
         });
         instance.requestMenu.getChildren().add(button);
@@ -272,7 +273,6 @@ public class Application extends javafx.application.Application {
      * update the runways on the center
      */
     public static void updateRunways() {
-        System.out.println("TEST");
         Runways runways = Runways.getInstance();
 
         instance.runwaysDisplay.getChildren().clear();

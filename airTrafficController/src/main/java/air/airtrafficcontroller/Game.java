@@ -48,17 +48,25 @@ public class Game {
     // Getters
     public static int getHour() {return instance.hour;}
     public static int getPeopleKilled() {return instance.peopleKilled;}
-    public static Turn getCurrentTurn() { return instance.turns.get(instance.hour);}
+    public static Turn getCurrentTurn() {
+        System.out.println(instance.turns.get(instance.hour));
+        return instance.turns.get(instance.hour);
+    }
 
     //calls methods that move entities to next hour
-    public static void passHour() {
+    public static boolean passHour() {
         Runways.passHour();
         WaitingLine.passHour();
         getCurrentTurn().allTakeOff(); //update runways, get rid of planes that are done waiting
         getCurrentTurn().crashWaitingPlanes(); //update waiting line, get rid of planes out of fuel
         instance.hour += 1;
-        checkDefeat();
-        checkVictory();
+        if (checkDefeat()  || checkVictory())
+            return false;
+        Application.updateWaitingLine();
+        Application.updateRunways();
+        Application.updateHour(instance.hour);
+        Application.updateDeaths(instance.peopleKilled);
+        return true;
     }
 
     //Change amount of dead people (see option consequences)

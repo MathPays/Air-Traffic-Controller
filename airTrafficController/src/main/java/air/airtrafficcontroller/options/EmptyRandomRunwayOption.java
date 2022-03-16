@@ -1,8 +1,11 @@
 package air.airtrafficcontroller.options;
 
+import air.airtrafficcontroller.Application;
 import air.airtrafficcontroller.Option;
 import air.airtrafficcontroller.Runway;
 import air.airtrafficcontroller.Runways;
+
+import java.util.ArrayList;
 
 public class EmptyRandomRunwayOption extends Option {
 
@@ -15,19 +18,15 @@ public class EmptyRandomRunwayOption extends Option {
 
     @Override
     public void performOption() { //à retaper pour gérer l'aléatoire
-
-        int index = (int) (Math.random() * 8);
-        for(int i = index; i < 7; i++) {
-            if(!(Runways.getRunways()[i].getState().equals(Runway.State.OCCUPIED)))
-            {
-                if(i == 7) //We go back to the beggining of the loop until we find a free runway
-                    i = -1; //will be incremented at 0 automatically
-                continue;
+        ArrayList<Integer> indexList = new ArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            if (Runways.getRunways()[i].getState() == Runway.State.OCCUPIED) {
+                indexList.add(i);
             }
-            else
-                Runways.getRunways()[i].removePlane(); //state free + remove plane
-            break;
         }
+        int index = (int) (Math.random() * indexList.size()-1);
+        Runways.getRunways()[indexList.get(index)].removePlane(); //state free + remove plane
+        Application.updateRunways();
     }
 
     @Override
