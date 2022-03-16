@@ -142,7 +142,11 @@ public class Application extends javafx.application.Application {
                     public void handle(ActionEvent event) {
                         option.performOption();
                         Game.getCurrentTurn().removeRequest(0);
-                        displayRequest(Game.getCurrentTurn().getNextRequest());
+                        if (Game.getCurrentTurn().getNextRequest() != null) {
+                            displayRequest(Game.getCurrentTurn().getNextRequest());
+                        } else {
+                            displayPassHour();
+                        }
                     }
                 });
             } else {
@@ -253,7 +257,7 @@ public class Application extends javafx.application.Application {
         descMenu.getChildren().addAll(gif,text);
         instance.requestMenu.getChildren().addAll(descMenu);
         //Choices
-        Button replay = new Button("Ok");
+        Button replay = new Button("Move to next hour");
         replay.getStyleClass().add("button");
         instance.requestMenu.getChildren().add(replay);
     }
@@ -304,7 +308,6 @@ public class Application extends javafx.application.Application {
      * update the waiting line on the left
      */
     public static void updateWaitingLine() {
-        System.out.println("TEST2");
         WaitingLine waitingLine = WaitingLine.getInstance();
         instance.waitingLineDisplay.getChildren().clear();
         HBox planeDisplay = new HBox();
@@ -333,7 +336,7 @@ public class Application extends javafx.application.Application {
                     }
                 });
             } else {
-                button.getStyleClass().add("blockedButton");
+                button.getStyleClass().add("buttonImpossible");
             }
             planeDisplay.getChildren().addAll(planeName, time, button);
             instance.waitingLineDisplay.getChildren().add(planeDisplay);
