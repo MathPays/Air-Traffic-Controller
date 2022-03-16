@@ -14,52 +14,54 @@
 }
 
 .runways {
-    -fx-background-color: grey;
+    -fx-border-width: 2px;
+    -fx-border-color: black;
+    -fx-background-color: #9c9c9c;
     -fx-background-radius: 2px;
-    -fx-max-width: 200;
+    -fx-max-width: 210;
 }
 
 
 .freeRunway {
     -fx-min-height: 65px;
-    -fx-max-width: 130px;
+    -fx-max-width: 195px;
     -fx-background-image: url("emptyRunway.png");
-    -fx-background-size: 130;
+    -fx-background-size: 195;
 }
 
 .occupiedRunway {
     -fx-min-height: 65px;
-    -fx-max-width: 130px;
-    -fx-background-image: url("planeRunwayTemp.png");
-    -fx-background-size: 130;
+    -fx-max-width: 195px;
+    -fx-background-image: url("planeRunway.png");
+    -fx-background-size: 195;
 }
 
 .frozenRunway {
     -fx-min-height: 65px;
-    -fx-max-width: 130px;
-    -fx-background-image: url("frozenRunwayTemp.png");
-    -fx-background-size: 130;
+    -fx-max-width: 195px;
+    -fx-background-image: url("frozenRunway.png");
+    -fx-background-size: 195;
 }
 
 .riotRunway {
     -fx-min-height: 65px;
-    -fx-max-width: 130px;
+    -fx-max-width: 195px;
     -fx-background-image: url("riotRunway.png");
-    -fx-background-size: 130;
+    -fx-background-size: 195;
 }
 
 .protestRunway {
     -fx-min-height: 65px;
-    -fx-max-width: 130px;
-    -fx-background-image: url("protestRunwayTemp.png");
-    -fx-background-size: 130;
+    -fx-max-width: 195px;
+    -fx-background-image: url("protestRunway.png");
+    -fx-background-size: 195;
 }
 
 .removedRunway {
     -fx-min-height: 65px;
-    -fx-max-width: 130px;
-    -fx-background-image: url("removedRunwayTemp.png");
-    -fx-background-size: 130;
+    -fx-max-width: 195px;
+    -fx-background-image: url("removedRunway.png");
+    -fx-background-size: 195;
 }
 
 .runwayHour {
@@ -79,15 +81,16 @@
 }
 
 .menu {
-    -fx-background-color: #2e2e2e;
-    -fx-min-height: 250px;
+    -fx-background-image: url("pc.png");
+    -fx-min-height: 300px;
+    -fx-max-height: 500px;
     -fx-min-width: 600px;
     -fx-max-width: 600px;
     -fx-background-radius: 2px;
 }
 
 .requestMenu {
-    -fx-padding: 50px;
+    -fx-padding: 100px;
     -fx-min-width: 600px;
     -fx-max-width: 600px;
 
@@ -121,13 +124,15 @@
 }
 
 .waitingLine {
-    -fx-background-color: #2e2e2e;
+    -fx-border-width: 2px;
+    -fx-border-color: black;
+    -fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #16243e, #583940);
     -fx-background-radius: 2px;
     -fx-min-width: 250px;
 }
 
 .plane {
-    -fx-background-color: black;
+    -fx-background-color: #1b2f49;
     -fx-padding: 2px;
     -fx-background-radius: 2px;
 }

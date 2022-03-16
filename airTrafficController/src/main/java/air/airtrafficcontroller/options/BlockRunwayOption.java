@@ -29,10 +29,10 @@ public class BlockRunwayOption extends Option {
             }
         }
         if (state == Runway.State.RIOT) {
-            int index = (int) (Math.random() * indexList.size() - 1);
-            int index2 = (int) (Math.random() * indexList.size() - 1);
+            int index = (int) (Math.random() * indexList.size());
+            int index2 = (int) (Math.random() * indexList.size());
             while (index2 == index) {
-                index2 = (int) (Math.random() * indexList.size() - 1);
+                index2 = (int) (Math.random() * indexList.size());
             }
             Runways.getRunways()[indexList.get(index)].setState(state);
             Runways.getRunways()[indexList.get(index)].setRunwayTime(hour);
@@ -40,7 +40,7 @@ public class BlockRunwayOption extends Option {
             Runways.getRunways()[indexList.get(index2)].setRunwayTime(hour);
             Application.updateRunways();
         } else {
-            int index = (int) (Math.random() * indexList.size() - 1);
+            int index = (int) (Math.random() * indexList.size());
             Runways.getRunways()[indexList.get(index)].setState(state);
             Runways.getRunways()[indexList.get(index)].setRunwayTime(hour);//state free + remove plane
             Application.updateRunways();

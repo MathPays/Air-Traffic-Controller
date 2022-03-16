@@ -125,7 +125,7 @@ public class Application extends javafx.application.Application {
         Text desc = new Text(10, 50, request.getDescription());
         title.getStyleClass().add("title");
         desc.getStyleClass().add("desc");
-        desc.setWrappingWidth(400);
+        desc.setWrappingWidth(350);
         text.getChildren().addAll(title, desc);
         descMenu.getChildren().addAll(gif,text);
         instance.requestMenu.getChildren().addAll(descMenu);
@@ -357,11 +357,13 @@ public class Application extends javafx.application.Application {
             planeDisplay = new HBox();
             planeDisplay.setAlignment(Pos.CENTER);
             planeDisplay.getStyleClass().add("plane");
-            planeDisplay.setSpacing(40);
+            planeDisplay.setSpacing(10);
             Text planeName = new Text(String.valueOf(plane.getId()));
             planeName.getStyleClass().add("desc");
-            Text time = new Text(plane.getHoursFuel()+" left");
+            Text time = new Text(plane.getHoursFuel()+"H left");
             time.getStyleClass().add("desc");
+            Text need = new Text(plane.getRunwayTime()+"H needed");
+            need.getStyleClass().add("desc");
             Button button = new Button("Land");
             if (availableRunway) {
                 button.getStyleClass().add("button");
@@ -374,7 +376,7 @@ public class Application extends javafx.application.Application {
             } else {
                 button.getStyleClass().add("buttonImpossible");
             }
-            planeDisplay.getChildren().addAll(planeName, time, button);
+            planeDisplay.getChildren().addAll(planeName, time, need, button);
             instance.waitingLineDisplay.getChildren().add(planeDisplay);
         }
     }
