@@ -7,13 +7,13 @@ public class Game {
     public int hour;
     public int peopleKilled;
 
-    // Forced the default constructor
+    //Singleton constructor
     private Game() {
         this.hour = 0;
         this.peopleKilled = 0;
     }
 
-    // Create a new singleton to could create new game when we want
+    //Resets the game values (for a new game)
     public static void restart() {
         instance.hour = 0;
         instance.peopleKilled = 0;
@@ -23,14 +23,15 @@ public class Game {
     public static int getHour() {return instance.hour;}
     public static int getPeopleKilled() {return instance.peopleKilled;}
 
+    // TODO: 16/03/2022 passHour should call the other passHour methods in the other classes
     public static void passHour() {
         instance.hour += 1;
     }
 
+    //Change amount of dead people (see option consequences)
     public static void killMorePeople(int nb) {
         instance.peopleKilled += nb;
     }
-
     public static void reduceDeadPeople(int nb) {
         if(instance.peopleKilled <= nb)
             instance.peopleKilled = 0;
