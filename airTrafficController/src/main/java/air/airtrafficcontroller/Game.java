@@ -2,6 +2,7 @@ package air.airtrafficcontroller;
 
 public class Game {
 
+    // TODO: 16/03/2022 the loop  
     public static Game instance = new Game();
     public int hour;
     public int peopleKilled;
