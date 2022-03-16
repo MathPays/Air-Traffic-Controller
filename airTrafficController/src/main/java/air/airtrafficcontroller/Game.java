@@ -21,6 +21,14 @@ public class Game {
         }
     }
 
+    public boolean checkDefeat() {
+        return (instance.peopleKilled >= 350);
+    }
+
+    public boolean checkVictory() {
+        return (instance.hour >= 24);
+    }
+
     //Resets the game values (for a new game)
     public static void restart() {
         instance.hour = 0;
