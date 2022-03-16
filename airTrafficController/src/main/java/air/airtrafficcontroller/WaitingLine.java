@@ -72,4 +72,8 @@ public class WaitingLine {
     {
         return instance.waitingLine.isEmpty();
     }
+
+    public static void passHour(){
+        instance.removeFuel(1);
+    }
 }

@@ -40,8 +40,12 @@ public class Game {
     public static int getPeopleKilled() {return instance.peopleKilled;}
     public static Turn getCurrentTurn() { return instance.turns.get(instance.hour);}
 
-    // TODO: 16/03/2022 passHour should call the other passHour methods in the other classes
+    //calls methods that move entities to next hour
     public static void passHour() {
+        Runways.passHour();
+        WaitingLine.passHour();
+        getCurrentTurn().allTakeOff(); //update runways, get rid of planes that are done waiting
+        getCurrentTurn().crashWaitingPlanes(); //update waiting line, get rid of planes out of fuel
         instance.hour += 1;
     }
 
