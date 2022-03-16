@@ -1,5 +1,6 @@
 package air.airtrafficcontroller.options;
 
+import air.airtrafficcontroller.Application;
 import air.airtrafficcontroller.Option;
 import air.airtrafficcontroller.Runway;
 import air.airtrafficcontroller.Runways;
@@ -16,12 +17,12 @@ public class AddWaitTimeOption extends Option {
 
     @Override
     public void performOption() {
-        for(Runway r : Runways.instance.getRunways())
-        {
+        for(Runway r : Runways.instance.getRunways()) {
             if (r.getState() == Runway.State.OCCUPIED) {
                 r.getPlane().setRunwayTime(r.getRunwayTime() + hour);
             }
         }
+        Application.updateRunways();
     }
 
     @Override

@@ -287,21 +287,28 @@ public class Application extends javafx.application.Application {
                     runwayDisplay.getStyleClass().add("freeRunway");
                     break;
                 case OCCUPIED:
-                    planeHour = new Text(10, 50, String.valueOf(runway.getRunwayTime()));
                     planeHour.getStyleClass().add("runwayHour");
-                    runwayDisplay.getStyleClass().add("takenRunway");
+                    runwayDisplay.getStyleClass().add("occupiedRunway");
                     runwayDisplay.getChildren().addAll(planeHour);
                     break;
                 case FROZEN:
-                    planeHour = new Text(10, 50, String.valueOf(runway.getRunwayTime()));
                     planeHour.getStyleClass().add("runwayHour");
-                    runwayDisplay.getStyleClass().add("takenRunway");
+                    runwayDisplay.getStyleClass().add("frozenRunway");
                     runwayDisplay.getChildren().addAll(planeHour);
                     break;
                 case RIOT:
-                    planeHour = new Text(10, 50, String.valueOf(runway.getRunwayTime()));
                     planeHour.getStyleClass().add("runwayHour");
-                    runwayDisplay.getStyleClass().add("takenRunway");
+                    runwayDisplay.getStyleClass().add("riotRunway");
+                    runwayDisplay.getChildren().addAll(planeHour);
+                    break;
+                case PROTEST:
+                    planeHour.getStyleClass().add("runwayHour");
+                    runwayDisplay.getStyleClass().add("protestRunway");
+                    runwayDisplay.getChildren().addAll(planeHour);
+                    break;
+                case REMOVED:
+                    planeHour.getStyleClass().add("runwayHour");
+                    runwayDisplay.getStyleClass().add("removedRunway");
                     runwayDisplay.getChildren().addAll(planeHour);
                     break;
             }

@@ -1,8 +1,11 @@
 package air.airtrafficcontroller.options;
 
+import air.airtrafficcontroller.Application;
 import air.airtrafficcontroller.Option;
 import air.airtrafficcontroller.Runway;
 import air.airtrafficcontroller.Runways;
+
+import java.util.ArrayList;
 
 public class BlockRunwayOption extends Option {
 
@@ -19,60 +22,34 @@ public class BlockRunwayOption extends Option {
 
     @Override
     public void performOption() {
-
-        if(this.state.equals(Runway.State.REMOVED)) // set runway time to one runway to 24 hours
-        {
-            int index = (int) (Math.random() * 8);
-            for(int i = index; i < 7; i++) {
-                if(!(Runways.getRunways()[i].getState().equals(Runway.State.FREE)))
-                {
-                    if(i == 7) //We go back to the beggining of the loop until we find a free runway
-                        i = -1; //will be incremented at 0 automatically
-                    continue;
-                }
-                else
-                    Runways.getRunways()[i].setRunwayTime(24); // A game is 24 hours, so the runway will be out
-                break; //we want only one runway removed
+        ArrayList<Integer> indexList = new ArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            if (Runways.getRunways()[i].getState() == Runway.State.FREE) {
+                indexList.add(i);
             }
         }
-
-        else if(this.state.equals(Runway.State.PROTEST)) //add x hours to the runway time of 1 runway
-        {
-            for(Runway r : Runways.getRunways())
-            {
-                if(r.getState().equals(Runway.State.FREE))
-                {
-                    r.setState(Runway.State.PROTEST);
-                    r.setRunwayTime(hour);
-                    break;
-                }
-
+        if (state == Runway.State.RIOT) {
+            int index = (int) (Math.random() * indexList.size() - 1);
+            int index2 = (int) (Math.random() * indexList.size() - 1);
+            while (index2 == index) {
+                index2 = (int) (Math.random() * indexList.size() - 1);
             }
+            Runways.getRunways()[indexList.get(index)].setState(state);
+            Runways.getRunways()[indexList.get(index)].setRunwayTime(hour);
+            Runways.getRunways()[indexList.get(index2)].setState(state);
+            Runways.getRunways()[indexList.get(index2)].setRunwayTime(hour);
+            Application.updateRunways();
+        } else {
+            int index = (int) (Math.random() * indexList.size() - 1);
+            Runways.getRunways()[indexList.get(index)].setState(state);
+            Runways.getRunways()[indexList.get(index)].setRunwayTime(hour);//state free + remove plane
+            Application.updateRunways();
         }
-
-        else if(this.state.equals(Runway.State.RIOT)) //add x hours to the runway time of 2 runways
-        {
-            int compt = 0;
-            for(Runway r : Runways.getRunways())
-            {
-                if(compt == 2)
-                    break;
-
-                if(r.getState().equals(Runway.State.FREE))
-                {
-                    r.setState(Runway.State.RIOT);
-                    r.setRunwayTime(hour);
-                    compt += 1;
-                }
-
-            }
-        }
-
     }
 
     @Override
     public boolean checkRequirement() {
-        if(this.state.equals(Runway.State.RIOT))
+        if (state == Runway.State.RIOT)
             return Runways.checkIf2AvailableRunway();
         return Runways.checkIfAvailableRunway();
     }
