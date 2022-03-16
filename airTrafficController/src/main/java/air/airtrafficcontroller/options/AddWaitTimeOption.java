@@ -19,7 +19,7 @@ public class AddWaitTimeOption extends Option {
     public void performOption() {
         for(Runway r : Runways.instance.getRunways()) {
             if (r.getState() == Runway.State.OCCUPIED) {
-                r.getPlane().setRunwayTime(r.getRunwayTime() + hour);
+                r.setRunwayTime(r.getRunwayTime() + hour);
             }
         }
         Application.updateRunways();
