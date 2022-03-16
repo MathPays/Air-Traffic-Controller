@@ -14,6 +14,10 @@ public class Runways{
         }
     }
 
+    public static void replay() {
+        instance = new Runways();
+    }
+
     //Getters
     public static Runways getInstance() {
         if(instance == null) {

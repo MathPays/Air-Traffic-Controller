@@ -11,6 +11,10 @@ public class WaitingLine {
         this.waitingLine = new ArrayList<Plane>();
     }
 
+    public static void replay() {
+        instance = new WaitingLine();
+    }
+
     //Getters
     public static WaitingLine getInstance() {
         if(instance == null) {

@@ -97,18 +97,16 @@ public class Application extends javafx.application.Application {
 
     /**
      * update the hour on the UI
-     * @param hour hour to display
      */
-    public static void updateHour(int hour) {
-        instance.hour.setText(hour+":00");
+    public static void updateHour() {
+        instance.hour.setText(Game.getHour()+":00");
     }
 
     /**
      * update the count of deaths on the UI
-     * @param deaths number of deaths
      */
-    public static void updateDeaths(int deaths) {
-        instance.deaths.setText(String.valueOf(deaths));
+    public static void updateDeaths() {
+        instance.deaths.setText(String.valueOf(Game.getPeopleKilled()));
     }
 
     /**
@@ -156,9 +154,17 @@ public class Application extends javafx.application.Application {
     }
 
 
-    //SUITE A FAIRE
+    /**
+     * display the infos about a crash on the monitor of the UI
+     * @param planesToCrash list of planes to crash
+     */
     public static void displayCrash(ArrayList<Plane> planesToCrash) {
         if (planesToCrash.isEmpty()) {
+            displayRequest(Game.getCurrentTurn().getNextRequest());
+            Application.updateWaitingLine();
+            Application.updateRunways();
+            Application.updateHour();
+            Application.updateDeaths();
             return;
         }
         Plane plane = planesToCrash.get(0);
@@ -183,6 +189,8 @@ public class Application extends javafx.application.Application {
         button.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                Game.killMorePeople(plane.getPassengers());
+                WaitingLine.removePlane(plane);
                 displayCrash(planesToCrash);
             }
         });
@@ -210,7 +218,15 @@ public class Application extends javafx.application.Application {
         //Choices
         Button replay = new Button("Replay");
         replay.getStyleClass().add("button");
+        replay.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Game.replay();
+                displayRequest(Game.getCurrentTurn().getNextRequest());
+            }
+        });
         instance.requestMenu.getChildren().add(replay);
+
     }
 
     /**
@@ -234,6 +250,13 @@ public class Application extends javafx.application.Application {
         //Choices
         Button replay = new Button("Replay");
         replay.getStyleClass().add("button");
+        replay.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Game.replay();
+                displayRequest(Game.getCurrentTurn().getNextRequest());
+            }
+        });
         instance.requestMenu.getChildren().add(replay);
     }
 

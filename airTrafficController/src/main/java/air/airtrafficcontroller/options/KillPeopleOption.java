@@ -17,7 +17,7 @@ public class KillPeopleOption extends Option {
     @Override
     public void performOption() {
         Game.killMorePeople(number);
-        Application.updateDeaths(Game.getPeopleKilled());
+        Application.updateDeaths();
     }
 
     @Override

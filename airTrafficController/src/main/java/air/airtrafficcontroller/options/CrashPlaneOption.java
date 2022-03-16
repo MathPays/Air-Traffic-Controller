@@ -1,9 +1,6 @@
 package air.airtrafficcontroller.options;
 
-import air.airtrafficcontroller.Game;
-import air.airtrafficcontroller.Option;
-import air.airtrafficcontroller.Plane;
-import air.airtrafficcontroller.WaitingLine;
+import air.airtrafficcontroller.*;
 
 public class CrashPlaneOption extends Option {
     private int number;
@@ -27,6 +24,8 @@ public class CrashPlaneOption extends Option {
             }
         }
         Game.killMorePeople(number);
+        Application.updateDeaths();
+        Application.updateWaitingLine();
     }
 
     @Override

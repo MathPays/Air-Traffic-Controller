@@ -3,8 +3,6 @@ package air.airtrafficcontroller;
 import java.util.ArrayList;
 
 public class Game {
-
-    // TODO: 16/03/2022 the loop  
     public static Game instance = new Game();
     private int hour;
     private int peopleKilled;
@@ -19,6 +17,16 @@ public class Game {
         for (int i = 0; i < 24; i++) {
             turns.add(new Turn());
         }
+    }
+
+    public static void replay() {
+        instance = new Game();
+        Runways.replay();
+        WaitingLine.replay();
+        Application.updateWaitingLine();
+        Application.updateRunways();
+        Application.updateDeaths();
+        Application.updateHour();
     }
 
     public static boolean checkDefeat() {
@@ -58,14 +66,13 @@ public class Game {
         Runways.passHour();
         WaitingLine.passHour();
         getCurrentTurn().allTakeOff(); //update runways, get rid of planes that are done waiting
-        getCurrentTurn().crashWaitingPlanes(); //update waiting line, get rid of planes out of fuel
         instance.hour += 1;
-        if (checkDefeat()  || checkVictory())
+        if (checkDefeat()  || checkVictory() || getCurrentTurn().crashWaitingPlanes())
             return false;
         Application.updateWaitingLine();
         Application.updateRunways();
-        Application.updateHour(instance.hour);
-        Application.updateDeaths(instance.peopleKilled);
+        Application.updateHour();
+        Application.updateDeaths();
         return true;
     }
 
