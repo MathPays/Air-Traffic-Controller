@@ -4,10 +4,11 @@ import java.util.ArrayList;
 
 public class Request {
     private String description, title;
-    private String imagePath;
+    private String imagePath; //image used in UI
     private double rarity;
-    private ArrayList<Option> listOptions;
+    private ArrayList<Option> listOptions; //list of options to deal with request
 
+    //Basic constructor
     public Request(String description, String title, double rarity, int nbOptions){
         this.description = description;
         this.imagePath = "plane_landing.gif";
@@ -16,6 +17,7 @@ public class Request {
         this.listOptions = new ArrayList<>();
     }
 
+    //Constructor with request image
     public Request(String description, String title, double rarity, int nbOptions, String imagePath) {
         this.description = description;
         this.title = title;
@@ -24,6 +26,7 @@ public class Request {
         this.listOptions = new ArrayList<>();
     }
 
+    //Add an option to option list
     public void addOption(Option option){
        listOptions.add(option);
     }
@@ -36,18 +39,16 @@ public class Request {
         return res;
     }
 
+    //Getters
     public String getDescription() {
         return description;
     }
-
     public String getTitle() {
         return title;
     }
-
     public String getImagePath() {
         return imagePath;
     }
-
     public ArrayList<Option> getListOptions() {
         return listOptions;
     }

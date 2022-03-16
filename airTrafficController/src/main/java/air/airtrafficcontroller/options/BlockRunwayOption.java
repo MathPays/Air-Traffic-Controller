@@ -73,7 +73,7 @@ public class BlockRunwayOption extends Option {
     @Override
     public boolean checkRequirement() {
         if(this.state.equals(Runway.State.RIOT))
-            return Runways.checkIf2AvailablesRunway();
+            return Runways.checkIf2AvailableRunway();
         return Runways.checkIfAvailableRunway();
     }
 }

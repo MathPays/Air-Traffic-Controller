@@ -6,17 +6,18 @@ public class WaitingLine {
     public static WaitingLine instance = new WaitingLine();
     private ArrayList<Plane> waitingLine;
 
+    //Singleton constructor
     private WaitingLine(){
         this.waitingLine = new ArrayList<Plane>();
     }
 
+    //Getters
     public static WaitingLine getInstance() {
         if(instance == null) {
             instance = new WaitingLine();
         }
         return instance;
     }
-
     public static ArrayList<Plane> getWaitingLine(){
         return instance.waitingLine;
     }
@@ -45,12 +46,12 @@ public class WaitingLine {
         Application.updateWaitingLine();
     }
 
+    //Land a plane => remove here and add to runways
     public static void landPlane(Plane plane, int index){
         removePlane(plane);
         Runways.addPlane(plane, index);
         Application.updateWaitingLine();
     }
-
     public static void landPlane(Plane plane){
         removePlane(plane);
         Runways.addPlane(plane);
@@ -62,10 +63,10 @@ public class WaitingLine {
         return this.waitingLine.size();
     }
 
+    //Check if plane is here or if empty
     public static boolean checkIfPlaneIn(Plane p){
         return instance.waitingLine.contains(p);
     }
-
     public static boolean checkIfExistsPlaneIn()
     {
         return instance.waitingLine.isEmpty();
