@@ -8,6 +8,7 @@ import air.airtrafficcontroller.WaitingLine;
 public class CrashPlaneOption extends Option {
     private int number;
 
+    //Removes a plane and kills nb people, DOESN'T KILL PEOPLE IN PLANE
     public CrashPlaneOption(String desc, int nb)
     {
         super(desc);
