@@ -127,7 +127,6 @@ public class Turn {
         ArrayList<Plane> planesToCrash = new ArrayList<Plane>();
         for (Plane plane : WaitingLine.getWaitingLine()) {
             if (plane.getHoursFuel() == 0) {
-                System.out.println("CRASH");
                 planesToCrash.add(plane);
             }
         }

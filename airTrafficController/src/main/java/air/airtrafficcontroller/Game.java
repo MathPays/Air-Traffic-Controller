@@ -57,7 +57,6 @@ public class Game {
     public static int getHour() {return instance.hour;}
     public static int getPeopleKilled() {return instance.peopleKilled;}
     public static Turn getCurrentTurn() {
-        System.out.println(instance.turns.get(instance.hour));
         return instance.turns.get(instance.hour);
     }
 
@@ -67,7 +66,7 @@ public class Game {
         WaitingLine.passHour();
         getCurrentTurn().allTakeOff(); //update runways, get rid of planes that are done waiting
         instance.hour += 1;
-        if (checkDefeat()  || checkVictory() || getCurrentTurn().crashWaitingPlanes())
+        if (getCurrentTurn().crashWaitingPlanes() || checkDefeat()  || checkVictory())
             return false;
         Application.updateWaitingLine();
         Application.updateRunways();

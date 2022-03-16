@@ -160,11 +160,14 @@ public class Application extends javafx.application.Application {
      */
     public static void displayCrash(ArrayList<Plane> planesToCrash) {
         if (planesToCrash.isEmpty()) {
-            displayRequest(Game.getCurrentTurn().getNextRequest());
             Application.updateWaitingLine();
             Application.updateRunways();
             Application.updateHour();
             Application.updateDeaths();
+            if (Game.checkDefeat() || Game.checkVictory()) {
+                return;
+            }
+            displayRequest(Game.getCurrentTurn().getNextRequest());
             return;
         }
         Plane plane = planesToCrash.get(0);
@@ -209,9 +212,9 @@ public class Application extends javafx.application.Application {
         VBox text = new VBox(10);
         Text title = new Text(10, 50, "Victory");
         Text desc = new Text(10, 50, "Good job ! You have managed to hold 24 hours as an air controller.");
+        desc.setWrappingWidth(300);
         title.getStyleClass().add("title");
         desc.getStyleClass().add("desc");
-        desc.setWrappingWidth(400);
         text.getChildren().addAll(title, desc);
         descMenu.getChildren().addAll(gif,text);
         instance.requestMenu.getChildren().addAll(descMenu);
