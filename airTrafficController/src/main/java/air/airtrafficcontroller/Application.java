@@ -72,7 +72,6 @@ public class Application extends javafx.application.Application {
         menu.setTop(instance.requestMenu);
 
         Turn turn = new Turn();
-        displayRequest(turn.getRequest());
 
         //Initizalization of the waiting line
         instance.waitingLineDisplay = new VBox(10);
@@ -141,7 +140,7 @@ public class Application extends javafx.application.Application {
                     @Override
                     public void handle(ActionEvent event) {
                         option.performOption();
-                        Game.getCurrentTurn().removeRequest(0);
+                        Game.getCurrentTurn().removeRequest();
                         if (Game.getCurrentTurn().getNextRequest() != null) {
                             displayRequest(Game.getCurrentTurn().getNextRequest());
                         } else {

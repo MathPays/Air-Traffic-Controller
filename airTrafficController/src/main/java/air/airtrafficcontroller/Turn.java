@@ -1,20 +1,21 @@
 package air.airtrafficcontroller;
 
 import air.airtrafficcontroller.options.*;
+import java.util.ArrayList;
 
 import java.util.Random;
 
 public class Turn {
-    private Request[] requestList; //List of requests [1-3] for this turn
+    private ArrayList<Request> requestList; //List of requests [1-3] for this turn
 
     //Constructor
     public Turn(){
         Random random = new Random();
         int nbRequest = 1 + random.nextInt(3); //random [1-3] number of requests
-        this.requestList = new Request[nbRequest];
+        this.requestList = new ArrayList<>();
         for(int i = 0; i < nbRequest; i++){
             Request request = this.createRequest();
-            this.requestList[i] = request;
+            this.requestList.add(request);
         }
     }
 
@@ -140,12 +141,7 @@ public class Turn {
     }
 
     //Remove a request (once request is completed)
-    public void removeRequest(int index) {
-        this.requestList[index] = null;
+    public void removeRequest() {
+        this.requestList.remove(0);
     }
-
-    public Request getRequest() {
-        return requestList[0];
-    }
-
 }
