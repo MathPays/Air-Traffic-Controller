@@ -83,9 +83,6 @@ public class Application extends javafx.application.Application {
         instance.waitingLineDisplay.getChildren().add(plane);
         root.setRight(instance.waitingLineDisplay);
 
-        Turn turn = new Turn();
-        displayRequest(turn.getRequest());
-
         Scene scene = new Scene(root, 1200, 650);
         scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
         stage.setTitle("Air Traffic Controller");
@@ -96,14 +93,26 @@ public class Application extends javafx.application.Application {
 
     }
 
+    /**
+     * update the hour on the UI
+     * @param hour hour to display
+     */
     public static void updateHour(int hour) {
         instance.hour.setText(hour+":00");
     }
 
+    /**
+     * update the count of deaths on the UI
+     * @param deaths number of deaths
+     */
     public static void updateDeaths(int deaths) {
         instance.deaths.setText(String.valueOf(deaths));
     }
 
+    /**
+     * display the request on the monitor of the UI
+     * @param request request to display
+     */
     public static void displayRequest(Request request) {
         //Title and description
         instance.requestMenu.getChildren().clear();
@@ -123,18 +132,29 @@ public class Application extends javafx.application.Application {
         ArrayList<Option> options = request.getListOptions();
         for (Option option: options) {
             Button button = new Button(option.getDesc());
-            button.getStyleClass().add("button");
-            button.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent event) {
-                    option.performOption();
-                }
-            });
+            if (option.checkRequirement()) {
+                button.getStyleClass().add("button");
+                button.setOnAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        option.performOption();
+                    }
+                });
+            } else {
+                button.getStyleClass().add("buttonImpossible");
+            }
             instance.requestMenu.getChildren().add(button);
         }
     }
 
-    public static void displayCrash() {
+
+    //SUITE A FAIRE
+    public static void displayCrash(ArrayList<Plane> planesToCrash) {
+        if (planesToCrash.isEmpty()) {
+            return;
+        }
+        Plane plane = planesToCrash.get(0);
+        planesToCrash.remove(0);
         instance.requestMenu.getChildren().clear();
         HBox descMenu = new HBox(10);
         descMenu.setAlignment(Pos.CENTER);
@@ -142,7 +162,7 @@ public class Application extends javafx.application.Application {
         gif.getStyleClass().add("gif");
         VBox text = new VBox(10);
         Text title = new Text(10, 50, "Crash !");
-        Text desc = new Text(10, 50, "The plane XXX has crashed, killing XXX people...");
+        Text desc = new Text(10, 50, "The plane "+plane.getId()+" has crashed, killing "+plane.getPassengers()+" people...");
         title.getStyleClass().add("title");
         desc.getStyleClass().add("desc");
         desc.setWrappingWidth(400);
@@ -152,9 +172,18 @@ public class Application extends javafx.application.Application {
         //Choices
         Button button = new Button("Ok");
         button.getStyleClass().add("button");
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                displayCrash(planesToCrash);
+            }
+        });
         instance.requestMenu.getChildren().add(button);
     }
 
+    /**
+     * display the victory message on the monitor
+     */
     public static void displayVictory() {
         instance.requestMenu.getChildren().clear();
         HBox descMenu = new HBox(10);
@@ -176,6 +205,9 @@ public class Application extends javafx.application.Application {
         instance.requestMenu.getChildren().add(replay);
     }
 
+    /**
+     * display the game over on the monitor
+     */
     public static void displayGameOver() {
         instance.requestMenu.getChildren().clear();
         HBox descMenu = new HBox(10);
@@ -197,6 +229,33 @@ public class Application extends javafx.application.Application {
         instance.requestMenu.getChildren().add(replay);
     }
 
+    /**
+     * display the end of the hour
+     */
+    public static void displayPassHour() {
+        instance.requestMenu.getChildren().clear();
+        HBox descMenu = new HBox(10);
+        descMenu.setAlignment(Pos.CENTER);
+        ImageView gif = new ImageView(new Image("plane_landing.gif",100,100,false, false));
+        gif.getStyleClass().add("gif");
+        VBox text = new VBox(10);
+        Text title = new Text(10, 50, "No more requests");
+        Text desc = new Text(10, 50, "You completed all the requests of this hour.");
+        title.getStyleClass().add("title");
+        desc.getStyleClass().add("desc");
+        desc.setWrappingWidth(400);
+        text.getChildren().addAll(title, desc);
+        descMenu.getChildren().addAll(gif,text);
+        instance.requestMenu.getChildren().addAll(descMenu);
+        //Choices
+        Button replay = new Button("Ok");
+        replay.getStyleClass().add("button");
+        instance.requestMenu.getChildren().add(replay);
+    }
+
+    /**
+     * update the runways on the center
+     */
     public static void updateRunways() {
         System.out.println("TEST");
         Runways runways = Runways.getInstance();
@@ -236,6 +295,9 @@ public class Application extends javafx.application.Application {
         }
     }
 
+    /**
+     * update the waiting line on the left
+     */
     public static void updateWaitingLine() {
         System.out.println("TEST2");
         WaitingLine waitingLine = WaitingLine.getInstance();
