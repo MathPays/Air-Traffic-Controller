@@ -2,7 +2,7 @@ package air.airtrafficcontroller;
 
 public abstract class Option {
 
-    private String desc;
+    private final String desc;
 
     public Option(String desc)
     {

@@ -6,8 +6,7 @@ import air.airtrafficcontroller.Runway;
 import air.airtrafficcontroller.Runways;
 
 public class AddWaitTimeOption extends Option {
-
-    private int hour;
+    private final int hour;
 
     public AddWaitTimeOption(String desc, int h)
     {
@@ -17,7 +16,7 @@ public class AddWaitTimeOption extends Option {
 
     @Override
     public void performOption() {
-        for(Runway r : Runways.instance.getRunways()) {
+        for(Runway r : Runways.getRunways()) {
             if (r.getState() == Runway.State.OCCUPIED) {
                 r.setRunwayTime(r.getRunwayTime() + hour);
             }

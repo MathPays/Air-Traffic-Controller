@@ -6,7 +6,7 @@ public class Game {
     public static Game instance = new Game();
     private int hour;
     private int peopleKilled;
-    private ArrayList<Turn> turns;
+    private final ArrayList<Turn> turns;
 
 
     //Singleton constructor
@@ -39,18 +39,12 @@ public class Game {
     }
 
     public static boolean checkVictory() {
-        if (instance.hour >= 24) {
+        if (instance.hour >= 23) {
             Application.displayVictory();
             return true;
         } else {
             return false;
         }
-    }
-
-    //Resets the game values (for a new game)
-    public static void restart() {
-        instance.hour = 0;
-        instance.peopleKilled = 0;
     }
 
     // Getters

@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public class BlockRunwayOption extends Option {
 
-    private int hour;
-    private Runway.State state;
+    private final int hour;
+    private final Runway.State state;
     //ajouter removed runway, runway aléatoire si pas libre incrémente
     //block 2 runways
     public BlockRunwayOption(String desc, int h, Runway.State s)
@@ -28,8 +28,8 @@ public class BlockRunwayOption extends Option {
                 indexList.add(i);
             }
         }
+        int index = (int) (Math.random() * indexList.size());
         if (state == Runway.State.RIOT) {
-            int index = (int) (Math.random() * indexList.size());
             int index2 = (int) (Math.random() * indexList.size());
             while (index2 == index) {
                 index2 = (int) (Math.random() * indexList.size());
@@ -38,13 +38,11 @@ public class BlockRunwayOption extends Option {
             Runways.getRunways()[indexList.get(index)].setRunwayTime(hour);
             Runways.getRunways()[indexList.get(index2)].setState(state);
             Runways.getRunways()[indexList.get(index2)].setRunwayTime(hour);
-            Application.updateRunways();
         } else {
-            int index = (int) (Math.random() * indexList.size());
             Runways.getRunways()[indexList.get(index)].setState(state);
             Runways.getRunways()[indexList.get(index)].setRunwayTime(hour);//state free + remove plane
-            Application.updateRunways();
         }
+        Application.updateRunways();
     }
 
     @Override

@@ -3,7 +3,7 @@ package air.airtrafficcontroller.options;
 import air.airtrafficcontroller.*;
 
 public class CrashPlaneOption extends Option {
-    private int number;
+    private final int number;
 
     public CrashPlaneOption(String desc, int nb)
     {

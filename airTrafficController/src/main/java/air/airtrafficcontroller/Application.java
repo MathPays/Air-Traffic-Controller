@@ -1,7 +1,5 @@
 package air.airtrafficcontroller;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -12,7 +10,6 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Application extends javafx.application.Application {
@@ -21,7 +18,7 @@ public class Application extends javafx.application.Application {
     public Text hour, deaths;
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
         BorderPane root = new BorderPane();
         root.getStyleClass().add("content");
 
@@ -73,7 +70,7 @@ public class Application extends javafx.application.Application {
 
         displayRequest(Game.getCurrentTurn().getNextRequest());
 
-        //Initizalization of the waiting line
+        //Initialization of the waiting line
         instance.waitingLineDisplay = new VBox(10);
         instance.waitingLineDisplay.setPadding(new Insets(10, 10, 10, 10));
         instance.waitingLineDisplay.getStyleClass().add("waitingLine");
@@ -134,16 +131,13 @@ public class Application extends javafx.application.Application {
             Button button = new Button(option.getDesc());
             if (option.checkRequirement()) {
                 button.getStyleClass().add("button");
-                button.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        option.performOption();
-                        Game.getCurrentTurn().removeRequest();
-                        if (Game.getCurrentTurn().getNextRequest() != null) {
-                            displayRequest(Game.getCurrentTurn().getNextRequest());
-                        } else {
-                            displayPassHour();
-                        }
+                button.setOnAction(event -> {
+                    option.performOption();
+                    Game.getCurrentTurn().removeRequest();
+                    if (Game.getCurrentTurn().getNextRequest() != null) {
+                        displayRequest(Game.getCurrentTurn().getNextRequest());
+                    } else {
+                        displayPassHour();
                     }
                 });
             } else {
@@ -189,13 +183,10 @@ public class Application extends javafx.application.Application {
         //Choices
         Button button = new Button("Ok");
         button.getStyleClass().add("button");
-        button.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Game.killMorePeople(plane.getPassengers());
-                WaitingLine.removePlane(plane);
-                displayCrash(planesToCrash);
-            }
+        button.setOnAction(event -> {
+            Game.killMorePeople(plane.getPassengers());
+            WaitingLine.removePlane(plane);
+            displayCrash(planesToCrash);
         });
         instance.requestMenu.getChildren().add(button);
     }
@@ -204,6 +195,10 @@ public class Application extends javafx.application.Application {
      * display the victory message on the monitor
      */
     public static void displayVictory() {
+        updateWaitingLine();
+        updateRunways();
+        updateHour();
+        updateDeaths();
         instance.requestMenu.getChildren().clear();
         HBox descMenu = new HBox(10);
         descMenu.setAlignment(Pos.CENTER);
@@ -221,12 +216,9 @@ public class Application extends javafx.application.Application {
         //Choices
         Button replay = new Button("Replay");
         replay.getStyleClass().add("button");
-        replay.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Game.replay();
-                displayRequest(Game.getCurrentTurn().getNextRequest());
-            }
+        replay.setOnAction(event -> {
+            Game.replay();
+            displayRequest(Game.getCurrentTurn().getNextRequest());
         });
         instance.requestMenu.getChildren().add(replay);
 
@@ -236,6 +228,10 @@ public class Application extends javafx.application.Application {
      * display the game over on the monitor
      */
     public static void displayGameOver() {
+        updateWaitingLine();
+        updateRunways();
+        updateHour();
+        updateDeaths();
         instance.requestMenu.getChildren().clear();
         HBox descMenu = new HBox(10);
         descMenu.setAlignment(Pos.CENTER);
@@ -253,12 +249,9 @@ public class Application extends javafx.application.Application {
         //Choices
         Button replay = new Button("Replay");
         replay.getStyleClass().add("button");
-        replay.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Game.replay();
-                displayRequest(Game.getCurrentTurn().getNextRequest());
-            }
+        replay.setOnAction(event -> {
+            Game.replay();
+            displayRequest(Game.getCurrentTurn().getNextRequest());
         });
         instance.requestMenu.getChildren().add(replay);
     }
@@ -284,12 +277,9 @@ public class Application extends javafx.application.Application {
         //Choices
         Button button = new Button("Move to next hour");
         button.getStyleClass().add("button");
-        button.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if (Game.passHour()) {
-                    displayRequest(Game.getCurrentTurn().getNextRequest());
-                }
+        button.setOnAction(event -> {
+            if (Game.passHour()) {
+                displayRequest(Game.getCurrentTurn().getNextRequest());
             }
         });
         instance.requestMenu.getChildren().add(button);
@@ -299,10 +289,8 @@ public class Application extends javafx.application.Application {
      * update the runways on the center
      */
     public static void updateRunways() {
-        Runways runways = Runways.getInstance();
-
         instance.runwaysDisplay.getChildren().clear();
-        for (Runway runway : runways.getRunways()) {
+        for (Runway runway : Runways.getRunways()) {
             HBox runwayDisplay = new HBox();
             runwayDisplay.setPadding(new Insets(0, 5, 0, 5));
             runwayDisplay.setAlignment(Pos.CENTER_LEFT);
@@ -347,7 +335,6 @@ public class Application extends javafx.application.Application {
      * update the waiting line on the left
      */
     public static void updateWaitingLine() {
-        WaitingLine waitingLine = WaitingLine.getInstance();
         instance.waitingLineDisplay.getChildren().clear();
         HBox planeDisplay = new HBox();
         planeDisplay.getStyleClass().add("plane");
@@ -356,7 +343,7 @@ public class Application extends javafx.application.Application {
         planeDisplay.getChildren().addAll(name);
         instance.waitingLineDisplay.getChildren().add(planeDisplay);
         boolean availableRunway = Runways.checkIfAvailableRunway();
-        for (Plane plane: waitingLine.getWaitingLine()) {
+        for (Plane plane: WaitingLine.getWaitingLine()) {
             planeDisplay = new HBox();
             planeDisplay.setAlignment(Pos.CENTER);
             planeDisplay.getStyleClass().add("plane");
@@ -370,11 +357,9 @@ public class Application extends javafx.application.Application {
             Button button = new Button("Land");
             if (availableRunway) {
                 button.getStyleClass().add("button");
-                button.setOnAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent event) {
-                        WaitingLine.landPlane(plane);
-                    }
+                button.setOnAction(event -> {
+                    WaitingLine.landPlane(plane);
+                    displayRequest(Game.getCurrentTurn().getNextRequest());
                 });
             } else {
                 button.getStyleClass().add("buttonImpossible");

@@ -4,9 +4,7 @@ import air.airtrafficcontroller.Option;
 import air.airtrafficcontroller.WaitingLine;
 
 public class AddFuelOption extends Option {
-
-    // A t-on vraiment besoin de cet attribut? On fait pas le plein par défaut ?
-    private int hour;
+    private final int hour;
 
     public AddFuelOption(int hour, String desc)
     {

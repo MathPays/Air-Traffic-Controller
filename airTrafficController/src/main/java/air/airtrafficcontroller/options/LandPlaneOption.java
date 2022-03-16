@@ -2,12 +2,11 @@ package air.airtrafficcontroller.options;
 
 import air.airtrafficcontroller.Option;
 import air.airtrafficcontroller.Plane;
-import air.airtrafficcontroller.Runway;
 import air.airtrafficcontroller.Runways;
 
 public class LandPlaneOption extends Option {
 
-    private Plane plane;
+    private final Plane plane;
 
     public LandPlaneOption(String desc, Plane plane)
     {

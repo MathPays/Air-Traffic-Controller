@@ -3,11 +3,10 @@ package air.airtrafficcontroller;
 import air.airtrafficcontroller.options.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class Turn {
-    private ArrayList<Request> requestList; //List of requests [1-3] for this turn
+    private final ArrayList<Request> requestList; //List of requests [1-3] for this turn
 
     //Constructor
     public Turn(){
@@ -28,7 +27,7 @@ public class Turn {
             int fuel = 3 + random.nextInt(3); //create random values for plane attributes
             int runwayTime = 1 + random.nextInt(4);
             int passengers = 100 + random.nextInt(401);
-            PlaneRequest request = new PlaneRequest("A plane wants to land.", "Plane landing", 40, 2, fuel, runwayTime, passengers);
+            PlaneRequest request = new PlaneRequest("A plane wants to land.", "Plane landing", 40, fuel, runwayTime, passengers);
             Option opt1 = new LandPlaneOption("Allow landing", request.getPlane());
             Option opt2 = new AddToWaitingLineOption("Place on standby", request.getPlane());
             request.addOption(opt1);
@@ -39,7 +38,7 @@ public class Turn {
             int fuel = 1 + random.nextInt(3); //create random values for plane attributes
             int runwayTime = 3 + random.nextInt(3);
             int passengers = 100 + random.nextInt(401);
-            PlaneRequest request = new PlaneRequest("A plane wants to land in an emergency.", "Emergency landing", 5, 2, fuel, runwayTime, passengers);
+            PlaneRequest request = new PlaneRequest("A plane wants to land in an emergency.", "Emergency landing", 5, fuel, runwayTime, passengers);
             Option opt1 = new LandPlaneOption("Allow landing", request.getPlane());
             Option opt2 = new AddToWaitingLineOption("Place on standby", request.getPlane());
             request.addOption(opt1);
@@ -50,7 +49,7 @@ public class Turn {
             int fuel = 4 + random.nextInt(3); //create random values for plane attributes
             int runwayTime = 1 + random.nextInt(4);
             int passengers = 300 + random.nextInt(301);
-            PlaneRequest request = new PlaneRequest("A large aircraft wants to land.", "Jumbo Jet", 15, 2, fuel, runwayTime, passengers);
+            PlaneRequest request = new PlaneRequest("A large aircraft wants to land.", "Jumbo Jet", 15, fuel, runwayTime, passengers);
             Option opt1 = new LandPlaneOption("Allow landing", request.getPlane());
             Option opt2 = new AddToWaitingLineOption("Place on standby", request.getPlane());
             request.addOption(opt1);
@@ -61,7 +60,7 @@ public class Turn {
             int fuel = 1 + random.nextInt(3); //create random values for plane attributes
             int runwayTime = 7;
             int passengers = 100 + random.nextInt(401);
-            PlaneRequest request = new PlaneRequest("A pilot is reporting that their plane is being overrun by snakes. They want to land at your airport.", "Snakes on the plane", 10, 2, fuel, runwayTime, passengers);
+            PlaneRequest request = new PlaneRequest("A pilot is reporting that their plane is being overrun by snakes. They want to land at your airport.", "Snakes on the plane", 10, fuel, runwayTime, passengers);
             Option opt1 = new LandPlaneOption("Allow landing", request.getPlane());
             Option opt2 = new KillPeopleOption("Refuse them", 50);
             request.addOption(opt1);
@@ -69,7 +68,7 @@ public class Turn {
             return request;
         }
         else if(idRequest < 80){ //Funding event, 10%
-            Request request = new Request("Increase in funding allows for one of the following bonuses:", "Funding Event", 10, 3,"funding.gif");
+            Request request = new Request("Increase in funding allows for one of the following bonuses:", "Funding Event", 10, "funding.gif");
             Option opt1 = new EmptyRandomRunwayOption("Empty a random runway");
             Option opt2 = new ReduceDeadPeopleOption("Rescue Team", 100);
             Option opt3 = new AddFuelOption(1, "Air Refueling");
@@ -79,7 +78,7 @@ public class Turn {
             return request;
         }
         else if(idRequest < 90){//Bad Weather, 10%
-            Request request = new Request("Select a bad weather event.", "Bad weather", 10, 3);
+            Request request = new Request("Select a bad weather event.", "Bad weather", 10);
             Option opt1 = new RemoveFuelOption(1, "Cross Winds");
             Option opt2 = new AddWaitTimeOption("Icy runways", 2);
             Option opt3 = new BlockRunwayOption("Ice storm", 5, Runway.State.FROZEN);
@@ -89,7 +88,7 @@ public class Turn {
             return request;
         }
         else if(idRequest < 95){ //protests, 5%
-            Request request = new Request("A group of protestors are blocking the runway claiming that your airplanes are dropping chemtrails which has caused the following health issues: “makes their toothpaste taste like mint.”", "Protests", 5, 3, "protest.gif");
+            Request request = new Request("A group of protestors are blocking the runway claiming that your airplanes are dropping chemtrails which has caused the following health issues: “makes their toothpaste taste like mint.”", "Protests", 5, "protest.gif");
             Option opt1 = new BlockRunwayOption("Allow them space to protest.", 10, Runway.State.PROTEST);
             Option opt2 = new BlockRunwayOption("Get police involved", 4, Runway.State.RIOT);Option opt3 = new KillPeopleOption("Let the plane land anyways", 100);
             request.addOption(opt1);
@@ -98,19 +97,13 @@ public class Turn {
             return request;
         }
         else { //john mcclain, 5%
-            Request request = new Request("Security reports of a man hijacking a plane on the runway. He claims he needs to stop the terrorists from stealing christmas. Do you lock down the runway or let them go?", "John McClain", 5, 2,"johnmcclane.gif");
+            Request request = new Request("Security reports of a man hijacking a plane on the runway. He claims he needs to stop the terrorists from stealing christmas. Do you lock down the runway or let them go?", "John McClain", 5, "johnmcclane.gif");
             Option opt1 = new BlockRunwayOption("Lockdown the runway", 8, Runway.State.OCCUPIED);
             Option opt2 = new CrashPlaneOption("Let the man go", 100);
             request.addOption(opt2);
             request.addOption(opt1);
             return request;
         }
-    }
-
-    //Plane lands from waiting line to runways
-    public void planeWaitingToRunway(Plane plane) {
-        WaitingLine.removePlane(plane);
-        Runways.addPlane(plane);
     }
 
     //Checks if runwayTime of runways is 0 and removes planes that can go (called at end of every turn)
@@ -124,7 +117,7 @@ public class Turn {
 
     //Checks fuel left in waiting planes and crashed those that are out (called at the end of every turn)
     public boolean crashWaitingPlanes() {
-        ArrayList<Plane> planesToCrash = new ArrayList<Plane>();
+        ArrayList<Plane> planesToCrash = new ArrayList<>();
         for (Plane plane : WaitingLine.getWaitingLine()) {
             if (plane.getHoursFuel() == 0) {
                 planesToCrash.add(plane);

@@ -5,7 +5,7 @@ import air.airtrafficcontroller.WaitingLine;
 
 public class RemoveFuelOption extends Option {
 
-    private int hour;
+    private final int hour;
 
     public RemoveFuelOption(int h, String desc)
     {

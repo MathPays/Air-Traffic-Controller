@@ -6,7 +6,7 @@ import air.airtrafficcontroller.Option;
 
 public class ReduceDeadPeopleOption extends Option {
 
-    private int nb;
+    private final int nb;
 
     public ReduceDeadPeopleOption(String desc, int nb)
     {

@@ -9,8 +9,6 @@ import java.util.ArrayList;
 
 public class EmptyRandomRunwayOption extends Option {
 
-    private Runway.State state;
-
     public EmptyRandomRunwayOption(String desc)
     {
         super(desc);

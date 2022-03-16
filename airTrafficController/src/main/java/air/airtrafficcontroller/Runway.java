@@ -42,9 +42,6 @@ public class Runway {
         this.plane = null;
         this.state = State.FREE;
     }
-    public void emptyRunway(){
-        this.state = State.FREE;
-    }
 
     public void passHour() { this.runwayTime--; }
 }

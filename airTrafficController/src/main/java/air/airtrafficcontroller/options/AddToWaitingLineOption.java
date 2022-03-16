@@ -6,7 +6,7 @@ import air.airtrafficcontroller.WaitingLine;
 
 public class AddToWaitingLineOption extends Option {
 
-    private Plane plane;
+    private final Plane plane;
 
     public AddToWaitingLineOption(String desc, Plane plane)
     {
