@@ -1,8 +1,9 @@
 package air.airtrafficcontroller;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Request {
+public class Request implements Serializable {
     private final String description, title;
     private final String imagePath; //image used in UI
     private final double rarity;

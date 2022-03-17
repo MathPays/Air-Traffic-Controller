@@ -2,10 +2,11 @@ package air.airtrafficcontroller;
 
 import air.airtrafficcontroller.options.*;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Turn {
+public class Turn implements Serializable {
     private final ArrayList<Request> requestList; //List of requests [1-3] for this turn
 
     //Constructor

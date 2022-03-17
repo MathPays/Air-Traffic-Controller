@@ -1,6 +1,8 @@
 package air.airtrafficcontroller;
 
-public class Runway {
+import java.io.Serializable;
+
+public class Runway implements Serializable {
     public enum State{
         FROZEN, FREE, RIOT, OCCUPIED, PROTEST, REMOVED
     } //Possible states a runway can be in

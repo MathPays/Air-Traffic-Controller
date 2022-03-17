@@ -4,7 +4,9 @@ import air.airtrafficcontroller.Option;
 import air.airtrafficcontroller.Plane;
 import air.airtrafficcontroller.WaitingLine;
 
-public class AddToWaitingLineOption extends Option {
+import java.io.Serializable;
+
+public class AddToWaitingLineOption extends Option implements Serializable {
 
     private final Plane plane;
 

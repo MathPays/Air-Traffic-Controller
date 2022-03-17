@@ -9,8 +9,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Application extends javafx.application.Application {
@@ -27,6 +29,15 @@ public class Application extends javafx.application.Application {
         HBox display = new HBox();
         display.setSpacing(5);
         display.setPadding(new Insets(10, 10, 10, 10));
+        Button button = new Button("Save");
+        button.getStyleClass().add("button");
+        button.setOnAction(event -> {
+            try {
+                Main.save();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         instance.hour = new Text(10, 50, "00:00");
         instance.hour.getStyleClass().add("hour");
         ImageView image = new ImageView(new Image("death.png"));
@@ -34,7 +45,7 @@ public class Application extends javafx.application.Application {
         image.setPreserveRatio(true);
         instance.deaths = new Text(10, 50, "0");
         instance.deaths.getStyleClass().add("hour");
-        display.getChildren().addAll(instance.hour, image, instance.deaths);
+        display.getChildren().addAll(button, instance.hour, image, instance.deaths);
         root.setTop(display);
 
         //Initialization of the runway menu
@@ -69,7 +80,7 @@ public class Application extends javafx.application.Application {
 
         menu.setTop(instance.requestMenu);
 
-        displayRequest(Game.getCurrentTurn().getNextRequest(),null);
+        displayStart();
 
         //Initialization of the waiting line
         instance.waitingLineDisplay = new VBox(10);
@@ -89,7 +100,7 @@ public class Application extends javafx.application.Application {
         scene.getStylesheets().add(getClass().getResource("/style.css").toExternalForm());
         stage.setTitle("Air Traffic Controller");
         stage.setScene(scene);
-        stage.getIcons().add(new Image("plane_landing.gif"));
+        stage.getIcons().add(new Image("icon.png"));
         stage.setResizable(false);
         stage.show();
 
@@ -114,7 +125,10 @@ public class Application extends javafx.application.Application {
      * @param request request to display
      */
     public static void displayRequest(Request request,String effect) {
-        //Title and description
+        if (request == null) {
+            displayPassHour(effect);
+            return;
+        }
         instance.requestMenu.getChildren().clear();
         HBox descMenu = new HBox(10);
         descMenu.setAlignment(Pos.CENTER);
@@ -140,11 +154,7 @@ public class Application extends javafx.application.Application {
                 button.setOnAction(event -> {
                     String effectDesc = option.performOption();
                     Game.getCurrentTurn().removeRequest();
-                    if (Game.getCurrentTurn().getNextRequest() != null) {
-                        displayRequest(Game.getCurrentTurn().getNextRequest(),effectDesc);
-                    } else {
-                        displayPassHour(effectDesc);
-                    }
+                    displayRequest(Game.getCurrentTurn().getNextRequest(),effectDesc);
                 });
             } else {
                 button.getStyleClass().add("buttonImpossible");
@@ -261,6 +271,43 @@ public class Application extends javafx.application.Application {
         instance.requestMenu.getChildren().add(replay);
     }
 
+    public static void displayStart() {
+        instance.requestMenu.getChildren().clear();
+        VBox text = new VBox(10);
+        Text effects = new Text(10, 50, "Mathilde PAYSANT\nClovis THOUVENOT OUDART\nPaul CAVROIS\nHugo ANCEAUX");
+        Text title = new Text(10, 50, "Air Traffic Controller");
+        Text desc = new Text(10, 50, "Welcome to our Air Traffic Controller simulator.");
+        effects.getStyleClass().add("effect");
+        effects.setWrappingWidth(350);
+        title.getStyleClass().add("title");
+        desc.getStyleClass().add("desc");
+        desc.setWrappingWidth(400);
+        title.setTextAlignment(TextAlignment.CENTER);
+        effects.setTextAlignment(TextAlignment.CENTER);
+        desc.setTextAlignment(TextAlignment.CENTER);
+        instance.requestMenu.getChildren().addAll(effects,title,desc);
+        instance.requestMenu.getChildren().addAll(text);
+        //Choices
+        Button start = new Button("Start");
+        start.getStyleClass().add("button");
+        start.setOnAction(event -> {
+            displayRequest(Game.getCurrentTurn().getNextRequest(),null);
+        });
+        Button load = new Button("Load");
+        load.getStyleClass().add("button");
+        load.setOnAction(event -> {
+            try {
+                Main.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            displayRequest(Game.getCurrentTurn().getNextRequest(),null);
+        });
+        instance.requestMenu.getChildren().addAll(start, load);
+    }
+
     /**
      * Displays the end of the hour
      */
@@ -278,7 +325,7 @@ public class Application extends javafx.application.Application {
         effects.setWrappingWidth(350);
         title.getStyleClass().add("title");
         desc.getStyleClass().add("desc");
-        desc.setWrappingWidth(400);
+        desc.setWrappingWidth(350);
         text.getChildren().addAll(effects,title, desc);
         descMenu.getChildren().addAll(gif,text);
         instance.requestMenu.getChildren().addAll(descMenu);
@@ -302,7 +349,7 @@ public class Application extends javafx.application.Application {
             HBox runwayDisplay = new HBox();
             runwayDisplay.setPadding(new Insets(0, 5, 0, 5));
             runwayDisplay.setAlignment(Pos.CENTER_LEFT);
-            Text planeHour = new Text(10, 50, String.valueOf(runway.getRunwayTime()));
+            Text planeHour = new Text(10, 50, runway.getRunwayTime()+"H");
 
             switch (runway.getState()) {
                 case FREE:
@@ -356,7 +403,7 @@ public class Application extends javafx.application.Application {
             planeDisplay.setAlignment(Pos.CENTER);
             planeDisplay.getStyleClass().add("plane");
             planeDisplay.setSpacing(10);
-            Text planeName = new Text(String.valueOf(plane.getId()));
+            Text planeName = new Text("#"+plane.getId());
             planeName.getStyleClass().add("desc");
             Text time = new Text(plane.getHoursFuel()+"H left");
             time.getStyleClass().add("desc");

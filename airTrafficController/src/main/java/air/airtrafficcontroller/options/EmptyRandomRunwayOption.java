@@ -5,9 +5,10 @@ import air.airtrafficcontroller.Option;
 import air.airtrafficcontroller.Runway;
 import air.airtrafficcontroller.Runways;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class EmptyRandomRunwayOption extends Option {
+public class EmptyRandomRunwayOption extends Option implements Serializable {
 
     public EmptyRandomRunwayOption(String desc)
     {

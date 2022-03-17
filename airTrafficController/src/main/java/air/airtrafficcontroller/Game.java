@@ -1,8 +1,9 @@
 package air.airtrafficcontroller;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Game {
+public class Game implements Serializable {
     public static Game instance = new Game();
     private int hour;
     private int peopleKilled;

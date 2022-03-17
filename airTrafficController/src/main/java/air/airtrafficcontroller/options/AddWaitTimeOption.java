@@ -5,7 +5,9 @@ import air.airtrafficcontroller.Option;
 import air.airtrafficcontroller.Runway;
 import air.airtrafficcontroller.Runways;
 
-public class AddWaitTimeOption extends Option {
+import java.io.Serializable;
+
+public class AddWaitTimeOption extends Option implements Serializable {
     private final int hour;
 
     public AddWaitTimeOption(String desc, int h)

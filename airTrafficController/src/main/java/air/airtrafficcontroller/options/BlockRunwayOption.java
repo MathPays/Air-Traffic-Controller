@@ -5,9 +5,10 @@ import air.airtrafficcontroller.Option;
 import air.airtrafficcontroller.Runway;
 import air.airtrafficcontroller.Runways;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class BlockRunwayOption extends Option {
+public class BlockRunwayOption extends Option implements Serializable {
 
     private final int hour;
     private final Runway.State state;

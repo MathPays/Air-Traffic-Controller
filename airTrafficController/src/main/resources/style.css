@@ -90,7 +90,7 @@
 }
 
 .requestMenu {
-    -fx-padding: 100px;
+    -fx-padding: 50 120 100 85;
     -fx-min-width: 600px;
     -fx-max-width: 600px;
 
@@ -107,6 +107,12 @@
     -fx-fill: white;
     -fx-font-family: 'Courier New', monospace;
     -fx-font-size: 13;
+}
+
+.effect {
+    -fx-fill: grey;
+    -fx-font-family: 'Courier New', monospace;
+    -fx-font-size: 10;
 }
 
 .button {
@@ -136,4 +142,3 @@
     -fx-padding: 2px;
     -fx-background-radius: 2px;
 }
-

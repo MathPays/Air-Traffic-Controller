@@ -4,7 +4,9 @@ import air.airtrafficcontroller.Application;
 import air.airtrafficcontroller.Game;
 import air.airtrafficcontroller.Option;
 
-public class KillPeopleOption extends Option {
+import java.io.Serializable;
+
+public class KillPeopleOption extends Option implements Serializable {
 
     private final int number;
 

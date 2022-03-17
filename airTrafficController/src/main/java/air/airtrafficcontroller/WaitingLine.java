@@ -1,8 +1,9 @@
 package air.airtrafficcontroller;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class WaitingLine {
+public class WaitingLine implements Serializable {
     public static WaitingLine instance = new WaitingLine();
     private final ArrayList<Plane> waitingLine;
 

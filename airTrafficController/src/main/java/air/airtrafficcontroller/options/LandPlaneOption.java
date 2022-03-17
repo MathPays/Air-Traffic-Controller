@@ -4,7 +4,9 @@ import air.airtrafficcontroller.Option;
 import air.airtrafficcontroller.Plane;
 import air.airtrafficcontroller.Runways;
 
-public class LandPlaneOption extends Option {
+import java.io.Serializable;
+
+public class LandPlaneOption extends Option implements Serializable {
 
     private final Plane plane;
 

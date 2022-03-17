@@ -1,6 +1,8 @@
 package air.airtrafficcontroller;
 
-public class PlaneRequest extends Request{
+import java.io.Serializable;
+
+public class PlaneRequest extends Request implements Serializable {
     private Plane plane;
 
     //Constructor

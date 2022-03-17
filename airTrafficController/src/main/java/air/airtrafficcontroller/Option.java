@@ -1,11 +1,12 @@
 package air.airtrafficcontroller;
 
-public abstract class Option {
+import java.io.Serializable;
+
+public abstract class Option implements Serializable {
 
     private final String desc;
 
-    public Option(String desc)
-    {
+    public Option(String desc) {
         this.desc = desc;
     }
 

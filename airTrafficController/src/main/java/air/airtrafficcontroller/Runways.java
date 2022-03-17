@@ -1,6 +1,8 @@
 package air.airtrafficcontroller;
 
-public class Runways{
+import java.io.Serializable;
+
+public class Runways implements Serializable {
     public static Runways instance = new Runways();
     private final Runway[] runways; //List of runways
 

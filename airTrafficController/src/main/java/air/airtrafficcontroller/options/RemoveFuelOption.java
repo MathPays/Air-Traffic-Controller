@@ -3,7 +3,9 @@ package air.airtrafficcontroller.options;
 import air.airtrafficcontroller.Option;
 import air.airtrafficcontroller.WaitingLine;
 
-public class RemoveFuelOption extends Option {
+import java.io.Serializable;
+
+public class RemoveFuelOption extends Option implements Serializable {
 
     private final int hour;
 

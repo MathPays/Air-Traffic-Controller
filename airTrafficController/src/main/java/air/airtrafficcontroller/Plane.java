@@ -1,6 +1,8 @@
 package air.airtrafficcontroller;
 
-public class Plane {
+import java.io.Serializable;
+
+public class Plane implements Serializable {
     private static int index = 1; //All planes indexed
     private final int id;
     private final int runwayTime, passengers; //hoursFuel = time left with fuel; runwayTime = time necessary in runway; passenger = number of passengers on plane
