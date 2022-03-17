@@ -9,7 +9,7 @@ public abstract class Option {
         this.desc = desc;
     }
 
-    public abstract void performOption();
+    public abstract String performOption();
     public abstract boolean checkRequirement();
     public String getDesc() {
         return desc;

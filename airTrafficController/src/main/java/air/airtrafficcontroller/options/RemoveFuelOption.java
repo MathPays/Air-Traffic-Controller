@@ -14,8 +14,9 @@ public class RemoveFuelOption extends Option {
     }
 
     @Override
-    public void performOption() {
+    public String performOption() {
         WaitingLine.removeFuel(hour);
+        return hour+"H of fuel were removed from each plane in the waiting line.";
     }
 
     @Override

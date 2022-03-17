@@ -15,13 +15,14 @@ public class AddWaitTimeOption extends Option {
     }
 
     @Override
-    public void performOption() {
+    public String performOption() {
         for(Runway r : Runways.getRunways()) {
             if (r.getState() == Runway.State.OCCUPIED) {
                 r.setRunwayTime(r.getRunwayTime() + hour);
             }
         }
         Application.updateRunways();
+        return "Wait time added to all planes on the ground.";
     }
 
     @Override

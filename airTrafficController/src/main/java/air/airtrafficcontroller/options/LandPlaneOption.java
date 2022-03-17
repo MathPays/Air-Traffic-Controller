@@ -15,8 +15,9 @@ public class LandPlaneOption extends Option {
     }
 
     @Override
-    public void performOption() {
+    public String performOption() {
         Runways.addPlane(this.plane);
+        return "One plane landed successfully.";
     }
 
     @Override

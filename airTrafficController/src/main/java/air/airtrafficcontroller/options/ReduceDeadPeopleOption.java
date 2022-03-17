@@ -15,9 +15,10 @@ public class ReduceDeadPeopleOption extends Option {
     }
 
     @Override
-    public void performOption() {
+    public String performOption() {
         Game.reduceDeadPeople(nb);
         Application.updateDeaths();
+        return nb+" people were saved";
     }
 
     @Override

@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -59,7 +60,7 @@ public class Application extends javafx.application.Application {
         BorderPane menu = new BorderPane();
         menu.getStyleClass().add("menu");
         screen.getChildren().add(menu);
-        screen.setMargin(menu, new Insets(27,50,160,50));
+        StackPane.setMargin(menu, new Insets(27,50,160,50));
         root.setLeft(screen);
 
         instance.requestMenu = new VBox(10);
@@ -68,7 +69,7 @@ public class Application extends javafx.application.Application {
 
         menu.setTop(instance.requestMenu);
 
-        displayRequest(Game.getCurrentTurn().getNextRequest());
+        displayRequest(Game.getCurrentTurn().getNextRequest(),null);
 
         //Initialization of the waiting line
         instance.waitingLineDisplay = new VBox(10);
@@ -78,6 +79,8 @@ public class Application extends javafx.application.Application {
         plane.getStyleClass().add("plane");
         Text name = new Text("Waiting to land...");
         name.getStyleClass().add("desc");
+        Font font = Font.loadFont("NewHiScore", 12);
+        name.setFont(font);
         plane.getChildren().addAll(name);
         instance.waitingLineDisplay.getChildren().add(plane);
         root.setRight(instance.waitingLineDisplay);
@@ -110,7 +113,7 @@ public class Application extends javafx.application.Application {
      * Displays the request on the monitor of the UI
      * @param request request to display
      */
-    public static void displayRequest(Request request) {
+    public static void displayRequest(Request request,String effect) {
         //Title and description
         instance.requestMenu.getChildren().clear();
         HBox descMenu = new HBox(10);
@@ -118,12 +121,15 @@ public class Application extends javafx.application.Application {
         ImageView gif = new ImageView(new Image(request.getImagePath(),100,100,false, false));
         gif.getStyleClass().add("gif");
         VBox text = new VBox(10);
+        Text effects = new Text(10, 50, effect);
         Text title = new Text(10, 50, request.getTitle());
         Text desc = new Text(10, 50, request.getDescription());
+        effects.getStyleClass().add("effect");
+        effects.setWrappingWidth(350);
         title.getStyleClass().add("title");
         desc.getStyleClass().add("desc");
         desc.setWrappingWidth(350);
-        text.getChildren().addAll(title, desc);
+        text.getChildren().addAll(effects, title, desc);
         descMenu.getChildren().addAll(gif,text);
         instance.requestMenu.getChildren().addAll(descMenu);
         ArrayList<Option> options = request.getListOptions();
@@ -132,12 +138,12 @@ public class Application extends javafx.application.Application {
             if (option.checkRequirement()) {
                 button.getStyleClass().add("button");
                 button.setOnAction(event -> {
-                    option.performOption();
+                    String effectDesc = option.performOption();
                     Game.getCurrentTurn().removeRequest();
                     if (Game.getCurrentTurn().getNextRequest() != null) {
-                        displayRequest(Game.getCurrentTurn().getNextRequest());
+                        displayRequest(Game.getCurrentTurn().getNextRequest(),effectDesc);
                     } else {
-                        displayPassHour();
+                        displayPassHour(effectDesc);
                     }
                 });
             } else {
@@ -146,7 +152,6 @@ public class Application extends javafx.application.Application {
             instance.requestMenu.getChildren().add(button);
         }
     }
-
 
     /**
      * Displays the infos about a crash on the monitor of the UI
@@ -161,7 +166,7 @@ public class Application extends javafx.application.Application {
             if (Game.checkDefeat() || Game.checkVictory()) {
                 return;
             }
-            displayRequest(Game.getCurrentTurn().getNextRequest());
+            displayRequest(Game.getCurrentTurn().getNextRequest(),null);
             return;
         }
         Plane plane = planesToCrash.get(0);
@@ -218,7 +223,7 @@ public class Application extends javafx.application.Application {
         replay.getStyleClass().add("button");
         replay.setOnAction(event -> {
             Game.replay();
-            displayRequest(Game.getCurrentTurn().getNextRequest());
+            displayRequest(Game.getCurrentTurn().getNextRequest(),null);
         });
         instance.requestMenu.getChildren().add(replay);
 
@@ -251,7 +256,7 @@ public class Application extends javafx.application.Application {
         replay.getStyleClass().add("button");
         replay.setOnAction(event -> {
             Game.replay();
-            displayRequest(Game.getCurrentTurn().getNextRequest());
+            displayRequest(Game.getCurrentTurn().getNextRequest(),null);
         });
         instance.requestMenu.getChildren().add(replay);
     }
@@ -259,19 +264,22 @@ public class Application extends javafx.application.Application {
     /**
      * Displays the end of the hour
      */
-    public static void displayPassHour() {
+    public static void displayPassHour(String effect) {
         instance.requestMenu.getChildren().clear();
         HBox descMenu = new HBox(10);
         descMenu.setAlignment(Pos.CENTER);
         ImageView gif = new ImageView(new Image("plane_landing.gif",100,100,false, false));
         gif.getStyleClass().add("gif");
         VBox text = new VBox(10);
+        Text effects = new Text(10, 50, effect);
         Text title = new Text(10, 50, "No more requests");
         Text desc = new Text(10, 50, "You completed all the requests of this hour.");
+        effects.getStyleClass().add("effect");
+        effects.setWrappingWidth(350);
         title.getStyleClass().add("title");
         desc.getStyleClass().add("desc");
         desc.setWrappingWidth(400);
-        text.getChildren().addAll(title, desc);
+        text.getChildren().addAll(effects,title, desc);
         descMenu.getChildren().addAll(gif,text);
         instance.requestMenu.getChildren().addAll(descMenu);
         //Choices
@@ -279,7 +287,7 @@ public class Application extends javafx.application.Application {
         button.getStyleClass().add("button");
         button.setOnAction(event -> {
             if (Game.passHour()) {
-                displayRequest(Game.getCurrentTurn().getNextRequest());
+                displayRequest(Game.getCurrentTurn().getNextRequest(),null);
             }
         });
         instance.requestMenu.getChildren().add(button);
@@ -359,7 +367,7 @@ public class Application extends javafx.application.Application {
                 button.getStyleClass().add("button");
                 button.setOnAction(event -> {
                     WaitingLine.landPlane(plane);
-                    displayRequest(Game.getCurrentTurn().getNextRequest());
+                    displayRequest(Game.getCurrentTurn().getNextRequest(),null);
                 });
             } else {
                 button.getStyleClass().add("buttonImpossible");

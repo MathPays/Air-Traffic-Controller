@@ -15,7 +15,7 @@ public class EmptyRandomRunwayOption extends Option {
     }
 
     @Override
-    public void performOption() { //à retaper pour gérer l'aléatoire
+    public String performOption() {
         ArrayList<Integer> indexList = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
             if (Runways.getRunways()[i].getState() == Runway.State.OCCUPIED) {
@@ -25,6 +25,7 @@ public class EmptyRandomRunwayOption extends Option {
         int index = (int) (Math.random() * indexList.size()-1);
         Runways.getRunways()[indexList.get(index)].removePlane(); //state free + remove plane
         Application.updateRunways();
+        return "Emptied one runway.";
     }
 
     @Override

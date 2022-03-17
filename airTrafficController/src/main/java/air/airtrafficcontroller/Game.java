@@ -12,7 +12,7 @@ public class Game {
         this.hour = 0;
         this.peopleKilled = 0;
         this.turns = new ArrayList<>();
-        for (int i = 0; i < 24; i++) {
+        for (int i = 0; i < 25; i++) {
             turns.add(new Turn());
         }
     }
@@ -49,7 +49,7 @@ public class Game {
      * @return true if victory
      */
     public static boolean checkVictory() {
-        if (instance.hour >= 23) {
+        if (instance.hour >= 24) {
             Application.displayVictory();
             return true;
         } else {

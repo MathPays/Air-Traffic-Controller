@@ -15,8 +15,9 @@ public class AddToWaitingLineOption extends Option {
     }
 
     @Override
-    public void performOption() {
+    public String performOption() {
         WaitingLine.addPlane(this.plane);
+        return "Plane added to the waiting line.";
     }
 
     @Override

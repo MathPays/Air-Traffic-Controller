@@ -21,7 +21,7 @@ public class BlockRunwayOption extends Option {
     }
 
     @Override
-    public void performOption() {
+    public String performOption() {
         ArrayList<Integer> indexList = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
             if (Runways.getRunways()[i].getState() == Runway.State.FREE) {
@@ -38,11 +38,14 @@ public class BlockRunwayOption extends Option {
             Runways.getRunways()[indexList.get(index)].setRunwayTime(hour);
             Runways.getRunways()[indexList.get(index2)].setState(state);
             Runways.getRunways()[indexList.get(index2)].setRunwayTime(hour);
+            Application.updateRunways();
+            return "Two runways blocked.";
         } else {
             Runways.getRunways()[indexList.get(index)].setState(state);
-            Runways.getRunways()[indexList.get(index)].setRunwayTime(hour);//state free + remove plane
+            Runways.getRunways()[indexList.get(index)].setRunwayTime(hour);
+            Application.updateRunways();
+            return "One runway blocked.";
         }
-        Application.updateRunways();
     }
 
     @Override

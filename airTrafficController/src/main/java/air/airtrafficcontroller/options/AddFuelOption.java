@@ -13,8 +13,9 @@ public class AddFuelOption extends Option {
     }
 
     @Override
-    public void performOption() {
+    public String performOption() {
         WaitingLine.addFuel(hour);
+        return hour+"H of fuel added to all planes in waiting line.";
     }
 
     @Override

@@ -12,10 +12,8 @@ public class CrashPlaneOption extends Option {
     }
 
     @Override
-    public void performOption() {
-
-        if(WaitingLine.instance.size() > 0)
-        {
+    public String performOption() {
+        if(WaitingLine.instance.size() > 0) {
             int id = (int) (Math.random() * WaitingLine.instance.size());
             for(Plane p : WaitingLine.getWaitingLine())
             {
@@ -26,6 +24,7 @@ public class CrashPlaneOption extends Option {
         Game.killMorePeople(number);
         Application.updateDeaths();
         Application.updateWaitingLine();
+        return "One plane crashed.";
     }
 
     @Override
