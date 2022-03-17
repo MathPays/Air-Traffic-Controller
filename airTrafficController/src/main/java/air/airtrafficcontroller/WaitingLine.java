@@ -52,7 +52,7 @@ public class WaitingLine {
 
     public static boolean checkIfExistsPlaneIn()
     {
-        return instance.waitingLine.isEmpty();
+        return !instance.waitingLine.isEmpty();
     }
 
     public static void passHour(){
