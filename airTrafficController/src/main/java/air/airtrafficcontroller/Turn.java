@@ -85,7 +85,7 @@ public class Turn implements Serializable {
             Request request = new Request("Select a bad weather event.", "Bad weather", 10);
             Option opt1 = new RemoveFuelOption(1, "Cross Winds");
             Option opt2 = new AddWaitTimeOption("Icy runways", 2);
-            Option opt3 = new BlockRunwayOption("Ice storm", 5, Runway.State.FROZEN);
+            Option opt3 = new BlockRunwayOption("Ice storm", 24, Runway.State.REMOVED);
             request.addOption(opt1);
             request.addOption(opt2);
             request.addOption(opt3);

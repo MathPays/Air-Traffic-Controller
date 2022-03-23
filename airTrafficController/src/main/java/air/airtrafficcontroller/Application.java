@@ -217,7 +217,7 @@ public class Application extends javafx.application.Application {
         instance.requestMenu.getChildren().clear();
         HBox descMenu = new HBox(10);
         descMenu.setAlignment(Pos.CENTER);
-        ImageView gif = new ImageView(new Image("protest.gif",100,100,false, false));
+        ImageView gif = new ImageView(new Image("trophy.png",100,100,false, false));
         gif.getStyleClass().add("gif");
         VBox text = new VBox(10);
         Text title = new Text(10, 50, "Victory");
@@ -376,7 +376,7 @@ public class Application extends javafx.application.Application {
                     runwayDisplay.getChildren().addAll(planeHour);
                     break;
                 case REMOVED:
-                    planeHour.getStyleClass().add("runwayHour");
+                    planeHour.setText("");
                     runwayDisplay.getStyleClass().add("removedRunway");
                     runwayDisplay.getChildren().addAll(planeHour);
                     break;

@@ -9,10 +9,10 @@ public class Plane implements Serializable {
     private int hoursFuel;
 
     //constructor
-    public Plane(int h, int r, int p){
-        this.hoursFuel = h;
-        this.runwayTime = r;
-        this.passengers = p;
+    public Plane(int hoursFuel, int runwayTime, int passengers){
+        this.hoursFuel = hoursFuel;
+        this.runwayTime = runwayTime;
+        this.passengers = passengers;
         this.id = index;
         index++;
     }
